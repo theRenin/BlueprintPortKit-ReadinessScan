@@ -20,7 +20,7 @@
   "blueprints": 13,
   "structs": 0,
   "enums": 1,
-  "without_hand_work": 12,
+  "without_hand_work": 11,
   "with_hand_work": 2,
   "with_checked_only": 7,
   "cycles": 1,

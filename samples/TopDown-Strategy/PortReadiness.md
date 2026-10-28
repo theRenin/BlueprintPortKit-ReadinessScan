@@ -5,7 +5,7 @@ Generated 2026-10-28 by `port_readiness.py` (read-only, from the saved files). C
 ## Summary
 
 - 13 Blueprints, 0 structs, 1 enums.
-- 12 need no hand work: the kit's tools can port them (7 of them contain constructs the tools handle and check in the dry run). 2 contain at least one construct that stays hand work.
+- 11 of the Blueprints need no hand work: the kit's tools can port them (7 of them contain constructs the tools handle and check in the dry run). 2 contain at least one construct that stays hand work.
 - 1 cycle(s) of Blueprints that refer to each other; 0 file(s) BlueprintDump could not read.
 
 ## Can be ported with the kit alone

@@ -632,15 +632,17 @@ def make_report(settings, root, entries, waves, cycles, failed, today):
         with_it = [e for e in ordered if key in e["constructs"]]
         constructs[key] = {"label": label, "note": note, "hand_work": key in HAND_WORK, "blueprints": len(with_it),
                            "occurrences": sum(e["constructs"][key]["count"] for e in with_it)}
-    clear = sum(1 for e in ordered if not hand_work_keys(e))
-    checked_only = sum(1 for e in ordered if not hand_work_keys(e) and e["constructs"])
+    # The hand-work counts are over Blueprints only (structs and enums are listed, but they are not "ported with the kit").
+    blueprints = [e for e in ordered if e["kind"] not in ("Struct", "Enum")]
+    clear = sum(1 for e in blueprints if not hand_work_keys(e))
+    checked_only = sum(1 for e in blueprints if not hand_work_keys(e) and e["constructs"])
     return {
         "generated": (today or datetime.date.today()).isoformat(),
         "settings": {"folders": [str(f) for f in settings["folders"]], "content_root": str(root), "mount": settings["mount"],
                      "engine": settings["engine"], "exclude": settings["exclude"]},
         "summary": {"entries": len(ordered), "blueprints": sum(1 for e in ordered if e["kind"] not in ("Struct", "Enum")),
                     "structs": sum(1 for e in ordered if e["kind"] == "Struct"), "enums": sum(1 for e in ordered if e["kind"] == "Enum"),
-                    "without_hand_work": clear, "with_hand_work": len(ordered) - clear, "with_checked_only": checked_only,
+                    "without_hand_work": clear, "with_hand_work": len(blueprints) - clear, "with_checked_only": checked_only,
                     "cycles": len(cycles), "unreadable": len(failed)},
         "constructs": constructs, "blueprints": ordered, "waves": waves, "cycles": cycles,
         "unreadable": [{"file": str(p), "reason": r} for p, r in sorted(failed.items())],
@@ -672,7 +674,7 @@ def markdown_lines(report):
              f"mounted at `{settings['mount']}`, saved by UE {settings['engine']}.", "",
              "## Summary", "",
              f"- {s['blueprints']} Blueprints, {s['structs']} structs, {s['enums']} enums.",
-             f"- {s['without_hand_work']} need no hand work: the kit's tools can port them ({s['with_checked_only']} of them contain constructs the tools handle and check in the dry run). "
+             f"- {s['without_hand_work']} of the Blueprints need no hand work: the kit's tools can port them ({s['with_checked_only']} of them contain constructs the tools handle and check in the dry run). "
              f"{s['with_hand_work']} contain at least one construct that stays hand work.",
              f"- {s['cycles']} cycle(s) of Blueprints that refer to each other; {s['unreadable']} file(s) BlueprintDump could not read.", "",
              "## Can be ported with the kit alone", ""]
