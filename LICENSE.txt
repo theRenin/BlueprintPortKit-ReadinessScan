@@ -1,0 +1,19 @@
+BlueprintPortKit Readiness Scan - free license
+Version 1.0 of this text, 28 October 2026 (for BlueprintPortKit Readiness Scan 1.0.0)
+
+Copyright (c) 2026 Rene Gruszkowski. All rights reserved.
+Contact: rgruszkowski@seznam.cz
+
+1. What you may do. You may use the Readiness Scan (the files in this package) for free, for any purpose, including on commercial
+   projects, and on as many computers as you like. You may copy the package unchanged and give the copy to others, free of charge, together
+   with this license. The reports the scan writes are yours.
+2. What you may not do. You may not sell the package or charge for access to it, remove or change this license or the notices in it,
+   or present it as your own work. You may not use the name BlueprintPortKit for a product of your own.
+3. The paid product. This package is not the BlueprintPortKit plugin. The plugin is licensed separately, and nothing here gives you rights
+   to it.
+4. Third-party code. The BlueprintDump folder contains the third-party libraries listed in THIRD-PARTY-NOTICES.txt. They stay under their
+   own licenses (MIT), which that file names.
+5. No warranty. The scan is provided "as is", without warranty of any kind. Its list is a first look at your project, not a guarantee that
+   a port will succeed. To the extent the law allows, the author is not liable for any loss from using it. This does not limit rights that
+   the law gives a consumer and that cannot be excluded.
+6. Law. This text is governed by the law of the Czech Republic.
