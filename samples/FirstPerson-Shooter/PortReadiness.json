@@ -1,0 +1,2144 @@
+{
+ "generated": "2026-10-28",
+ "settings": {
+  "folders": [
+   "<YourProject>/Content\\FirstPerson",
+   "<YourProject>/Content\\Variant_Shooter"
+  ],
+  "content_root": "<YourProject>/Content",
+  "mount": "/Game",
+  "engine": "5.8",
+  "exclude": [
+   "__ExternalActors__",
+   "__ExternalObjects__",
+   "Developers",
+   "Collections"
+  ]
+ },
+ "summary": {
+  "entries": 43,
+  "blueprints": 42,
+  "structs": 1,
+  "enums": 0,
+  "without_hand_work": 27,
+  "with_hand_work": 16,
+  "with_checked_only": 19,
+  "cycles": 3,
+  "unreadable": 0
+ },
+ "constructs": {
+  "interfaces": {
+   "label": "Interfaces",
+   "note": "`swap_interface` moves the Blueprints that implement a Blueprint Interface onto a C++ interface (names with spaces match); a Blueprint can also keep its Blueprint Interface while it is ported. Message calls in levels and unloaded Blueprints stay a WARNING, and the old interface is deleted by hand",
+   "hand_work": false,
+   "blueprints": 16,
+   "occurrences": 43
+  },
+  "dispatchers": {
+   "label": "Event dispatchers",
+   "note": "the reparent preflight compares a dispatcher with the C++ delegate of its name, and `repoint_dispatcher_to_component` moves its users to a component; renaming or retyping a dispatcher stays hand work",
+   "hand_work": false,
+   "blueprints": 8,
+   "occurrences": 13
+  },
+  "timelines": {
+   "label": "Timelines",
+   "note": "no tool moves a Timeline: its curves and update logic are rewritten in C++ by hand",
+   "hand_work": true,
+   "blueprints": 3,
+   "occurrences": 3
+  },
+  "macros": {
+   "label": "Custom macros",
+   "note": "logic inside a macro graph is not seen by the call and delete tools",
+   "hand_work": true,
+   "blueprints": 0,
+   "occurrences": 0
+  },
+  "widget_bindings": {
+   "label": "Widget bindings",
+   "note": "the delete tools refuse while a binding names the member and `rename_member_variable` carries a variable binding along; a bound function in a re-point is a WARNING to bind by hand",
+   "hand_work": false,
+   "blueprints": 0,
+   "occurrences": 0
+  },
+  "replication": {
+   "label": "Replication",
+   "note": "the reparent preflight compares replication (flag, RepNotify, condition) and the re-point tools the RPC kind; a difference is a WARNING and a real run is refused",
+   "hand_work": false,
+   "blueprints": 0,
+   "occurrences": 0
+  },
+  "casts": {
+   "label": "Casts",
+   "note": "they keep working while the Blueprint they cast to stays (the usual port: the Blueprint becomes a thin child of the C++ class); only a cast to a Blueprint you delete or replace with a C++ class is hand work",
+   "hand_work": false,
+   "blueprints": 11,
+   "occurrences": 11
+  },
+  "soft_references": {
+   "label": "Soft references",
+   "note": "they keep working while the asset they point at stays; only one to a Blueprint you delete or replace with a C++ class is hand work",
+   "hand_work": false,
+   "blueprints": 0,
+   "occurrences": 0
+  },
+  "anim_blueprint": {
+   "label": "Anim Blueprint",
+   "note": "Property Access nodes cannot be edited: the delete tools only warn",
+   "hand_work": true,
+   "blueprints": 10,
+   "occurrences": 12
+  },
+  "reparent_by_hand": {
+   "label": "Reparent by hand",
+   "note": "`reparent_blueprint` refuses Widget, Animation and Level Blueprints: reparent them in the editor (File > Reparent Blueprint)",
+   "hand_work": true,
+   "blueprints": 8,
+   "occurrences": 8
+  },
+  "state_tree": {
+   "label": "State Tree",
+   "note": "`rebind_state_tree_property` and `remove_state_tree_binding` handle plain property bindings; output, task completion and property function bindings are hand work (the scan cannot tell them apart)",
+   "hand_work": false,
+   "blueprints": 9,
+   "occurrences": 11
+  }
+ },
+ "blueprints": [
+  {
+   "name": "ABP_TP_Pistol",
+   "package": "/Game/Variant_Shooter/Anims/ABP_TP_Pistol",
+   "file": "Variant_Shooter/Anims/ABP_TP_Pistol.uasset",
+   "kind": "Anim Blueprint",
+   "parent": "AnimInstance",
+   "native_root": "AnimInstance",
+   "implements": [],
+   "size": {
+    "variables": 34,
+    "components": 0,
+    "functions": 5,
+    "statements": 163,
+    "nodes": 57,
+    "members": 0
+   },
+   "constructs": {
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to Character"
+     ]
+    },
+    "reparent_by_hand": {
+     "count": 1,
+     "items": [
+      "Anim Blueprint"
+     ]
+    },
+    "anim_blueprint": {
+     "count": 1,
+     "items": [
+      "is an Anim Blueprint"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterWeapon_Pistol"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 1
+  },
+  {
+   "name": "ABP_TP_Rifle",
+   "package": "/Game/Variant_Shooter/Anims/ABP_TP_Rifle",
+   "file": "Variant_Shooter/Anims/ABP_TP_Rifle.uasset",
+   "kind": "Anim Blueprint",
+   "parent": "AnimInstance",
+   "native_root": "AnimInstance",
+   "implements": [],
+   "size": {
+    "variables": 34,
+    "components": 0,
+    "functions": 5,
+    "statements": 162,
+    "nodes": 57,
+    "members": 0
+   },
+   "constructs": {
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to Character"
+     ]
+    },
+    "reparent_by_hand": {
+     "count": 1,
+     "items": [
+      "Anim Blueprint"
+     ]
+    },
+    "anim_blueprint": {
+     "count": 1,
+     "items": [
+      "is an Anim Blueprint"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterNPC",
+     "BP_ShooterWeaponBase"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 2
+  },
+  {
+   "name": "BP_FirstPersonCameraManager",
+   "package": "/Game/FirstPerson/Blueprints/BP_FirstPersonCameraManager",
+   "file": "FirstPerson/Blueprints/BP_FirstPersonCameraManager.uasset",
+   "kind": "Blueprint",
+   "parent": "PlayerCameraManager",
+   "native_root": "PlayerCameraManager",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 1,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 1,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_FirstPersonPlayerController"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 3
+  },
+  {
+   "name": "BP_Shooter_GrenadeExplosion",
+   "package": "/Game/Variant_Shooter/Blueprints/Pickups/Projectiles/BP_Shooter_GrenadeExplosion",
+   "file": "Variant_Shooter/Blueprints/Pickups/Projectiles/BP_Shooter_GrenadeExplosion.uasset",
+   "kind": "Blueprint",
+   "parent": "Pawn",
+   "native_root": "Pawn",
+   "implements": [],
+   "size": {
+    "variables": 5,
+    "components": 2,
+    "functions": 3,
+    "statements": 48,
+    "nodes": 8,
+    "members": 0
+   },
+   "constructs": {
+    "timelines": {
+     "count": 1,
+     "items": [
+      "Timeline"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterProjectile_Grenade"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 4
+  },
+  {
+   "name": "BP_ShooterProjectileBase",
+   "package": "/Game/Variant_Shooter/Blueprints/Pickups/Projectiles/BP_ShooterProjectileBase",
+   "file": "Variant_Shooter/Blueprints/Pickups/Projectiles/BP_ShooterProjectileBase.uasset",
+   "kind": "Blueprint",
+   "parent": "Actor",
+   "native_root": "Actor",
+   "implements": [],
+   "size": {
+    "variables": 14,
+    "components": 1,
+    "functions": 4,
+    "statements": 282,
+    "nodes": 90,
+    "members": 0
+   },
+   "constructs": {
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to Character"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterWeaponBase",
+     "BP_ShooterProjectile_Bullet",
+     "BP_ShooterProjectile_Grenade",
+     "BP_ShooterWeapon_GrenadeLauncher"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 5
+  },
+  {
+   "name": "BPI_Shooter",
+   "package": "/Game/Variant_Shooter/Blueprints/BPI_Shooter",
+   "file": "Variant_Shooter/Blueprints/BPI_Shooter.uasset",
+   "kind": "Blueprint Interface",
+   "parent": "Interface",
+   "native_root": "Interface",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 5,
+    "statements": 10,
+    "nodes": 7,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "is a Blueprint Interface"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterNPC",
+     "BP_ShooterNPCSpawner",
+     "BP_ShooterCharacter",
+     "BP_ShooterGameMode",
+     "BP_ShooterPlayerController",
+     "UI_Shooter"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 6
+  },
+  {
+   "name": "BPI_Teammate",
+   "package": "/Game/Variant_Shooter/Blueprints/BPI_Teammate",
+   "file": "Variant_Shooter/Blueprints/BPI_Teammate.uasset",
+   "kind": "Blueprint Interface",
+   "parent": "Interface",
+   "native_root": "Interface",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 2,
+    "statements": 4,
+    "nodes": 3,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "is a Blueprint Interface"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterCharacter",
+     "BP_ShooterGameMode",
+     "BP_ShooterPlayerController"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 7
+  },
+  {
+   "name": "BPI_Touch_Shooter",
+   "package": "/Game/Variant_Shooter/Input/BPI_Touch_Shooter",
+   "file": "Variant_Shooter/Input/BPI_Touch_Shooter.uasset",
+   "kind": "Blueprint Interface",
+   "parent": "Interface",
+   "native_root": "Interface",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 3,
+    "statements": 6,
+    "nodes": 3,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "is a Blueprint Interface"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterCharacter",
+     "UI_TouchInterface_Shooter"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 8
+  },
+  {
+   "name": "Ctrl_HandAdjusment",
+   "package": "/Game/Variant_Shooter/Anims/Ctrl_HandAdjusment",
+   "file": "Variant_Shooter/Anims/Ctrl_HandAdjusment.uasset",
+   "kind": "Blueprint",
+   "parent": "ControlRig",
+   "native_root": "ControlRig",
+   "implements": [],
+   "size": {
+    "variables": 6,
+    "components": 0,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 0,
+    "members": 0
+   },
+   "constructs": {
+    "anim_blueprint": {
+     "count": 1,
+     "items": [
+      "used by ABP_FP_Weapon"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "ABP_FP_Weapon"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 9
+  },
+  {
+   "name": "Ctrl_HandAdjusment_Pistol",
+   "package": "/Game/Variant_Shooter/Anims/Ctrl_HandAdjusment_Pistol",
+   "file": "Variant_Shooter/Anims/Ctrl_HandAdjusment_Pistol.uasset",
+   "kind": "Blueprint",
+   "parent": "ControlRig",
+   "native_root": "ControlRig",
+   "implements": [],
+   "size": {
+    "variables": 6,
+    "components": 0,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 0,
+    "members": 0
+   },
+   "constructs": {
+    "anim_blueprint": {
+     "count": 1,
+     "items": [
+      "used by ABP_FP_Pistol"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "ABP_FP_Pistol"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 10
+  },
+  {
+   "name": "CtrlRig_FPWarp",
+   "package": "/Game/FirstPerson/Anims/CtrlRig_FPWarp",
+   "file": "FirstPerson/Anims/CtrlRig_FPWarp.uasset",
+   "kind": "Blueprint",
+   "parent": "ControlRig",
+   "native_root": "ControlRig",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 0,
+    "members": 0
+   },
+   "constructs": {
+    "anim_blueprint": {
+     "count": 1,
+     "items": [
+      "used by ABP_FP_Copy"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "ABP_FP_Copy"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 11
+  },
+  {
+   "name": "StateTreeTask_FaceActor",
+   "package": "/Game/Variant_Shooter/Blueprints/AI/StateTree/StateTreeTask_FaceActor",
+   "file": "Variant_Shooter/Blueprints/AI/StateTree/StateTreeTask_FaceActor.uasset",
+   "kind": "Blueprint",
+   "parent": "StateTreeTaskBlueprintBase",
+   "native_root": "StateTreeTaskBlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 2,
+    "components": 0,
+    "functions": 2,
+    "statements": 36,
+    "nodes": 7,
+    "members": 0
+   },
+   "constructs": {
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_Shooter"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [
+     "ST_Shooter"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 12
+  },
+  {
+   "name": "StateTreeTask_FaceLocation",
+   "package": "/Game/Variant_Shooter/Blueprints/AI/StateTree/StateTreeTask_FaceLocation",
+   "file": "Variant_Shooter/Blueprints/AI/StateTree/StateTreeTask_FaceLocation.uasset",
+   "kind": "Blueprint",
+   "parent": "StateTreeTaskBlueprintBase",
+   "native_root": "StateTreeTaskBlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 2,
+    "components": 0,
+    "functions": 2,
+    "statements": 39,
+    "nodes": 9,
+    "members": 0
+   },
+   "constructs": {
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_Shooter"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [
+     "ST_Shooter"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 13
+  },
+  {
+   "name": "StateTreeTask_SetRandomFloat",
+   "package": "/Game/Variant_Shooter/Blueprints/AI/StateTree/StateTreeTask_SetRandomFloat",
+   "file": "Variant_Shooter/Blueprints/AI/StateTree/StateTreeTask_SetRandomFloat.uasset",
+   "kind": "Blueprint",
+   "parent": "StateTreeTaskBlueprintBase",
+   "native_root": "StateTreeTaskBlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 3,
+    "components": 0,
+    "functions": 2,
+    "statements": 42,
+    "nodes": 10,
+    "members": 0
+   },
+   "constructs": {
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_Shooter_ShootAtTarget"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [
+     "ST_Shooter_ShootAtTarget"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 14
+  },
+  {
+   "name": "UI_ShooterBulletCounter",
+   "package": "/Game/Variant_Shooter/UI/UI_ShooterBulletCounter",
+   "file": "Variant_Shooter/UI/UI_ShooterBulletCounter.uasset",
+   "kind": "Widget Blueprint",
+   "parent": "UserWidget",
+   "native_root": "UserWidget",
+   "implements": [],
+   "size": {
+    "variables": 12,
+    "components": 0,
+    "functions": 3,
+    "statements": 92,
+    "nodes": 34,
+    "members": 0
+   },
+   "constructs": {
+    "reparent_by_hand": {
+     "count": 1,
+     "items": [
+      "Widget Blueprint"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterPlayerController"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 15
+  },
+  {
+   "name": "ABP_FP_Copy",
+   "package": "/Game/FirstPerson/Anims/ABP_FP_Copy",
+   "file": "FirstPerson/Anims/ABP_FP_Copy.uasset",
+   "kind": "Anim Blueprint",
+   "parent": "AnimInstance",
+   "native_root": "AnimInstance",
+   "implements": [],
+   "size": {
+    "variables": 5,
+    "components": 0,
+    "functions": 1,
+    "statements": 7,
+    "nodes": 2,
+    "members": 0
+   },
+   "constructs": {
+    "reparent_by_hand": {
+     "count": 1,
+     "items": [
+      "Anim Blueprint"
+     ]
+    },
+    "anim_blueprint": {
+     "count": 1,
+     "items": [
+      "is an Anim Blueprint"
+     ]
+    }
+   },
+   "depends_on": [
+    "CtrlRig_FPWarp"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_FirstPersonCharacter"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 16
+  },
+  {
+   "name": "BP_FirstPersonPlayerController",
+   "package": "/Game/FirstPerson/Blueprints/BP_FirstPersonPlayerController",
+   "file": "FirstPerson/Blueprints/BP_FirstPersonPlayerController.uasset",
+   "kind": "Blueprint",
+   "parent": "PlayerController",
+   "native_root": "PlayerController",
+   "implements": [],
+   "size": {
+    "variables": 2,
+    "components": 1,
+    "functions": 2,
+    "statements": 75,
+    "nodes": 24,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [
+    "BP_FirstPersonCameraManager"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_FirstPersonGameMode",
+     "BP_ShooterPlayerController"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 17
+  },
+  {
+   "name": "BP_ShooterProjectile_Bullet",
+   "package": "/Game/Variant_Shooter/Blueprints/Pickups/Projectiles/BP_ShooterProjectile_Bullet",
+   "file": "Variant_Shooter/Blueprints/Pickups/Projectiles/BP_ShooterProjectile_Bullet.uasset",
+   "kind": "Blueprint",
+   "parent": "BP_ShooterProjectileBase_C",
+   "native_root": "Actor",
+   "implements": [],
+   "size": {
+    "variables": 3,
+    "components": 2,
+    "functions": 3,
+    "statements": 87,
+    "nodes": 24,
+    "members": 0
+   },
+   "constructs": {
+    "timelines": {
+     "count": 1,
+     "items": [
+      "Wiggle"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_ShooterProjectileBase"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterWeaponBase"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 18
+  },
+  {
+   "name": "BP_ShooterProjectile_Grenade",
+   "package": "/Game/Variant_Shooter/Blueprints/Pickups/Projectiles/BP_ShooterProjectile_Grenade",
+   "file": "Variant_Shooter/Blueprints/Pickups/Projectiles/BP_ShooterProjectile_Grenade.uasset",
+   "kind": "Blueprint",
+   "parent": "BP_ShooterProjectileBase_C",
+   "native_root": "Actor",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 2,
+    "functions": 1,
+    "statements": 25,
+    "nodes": 5,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [
+    "BP_ShooterProjectileBase",
+    "BP_Shooter_GrenadeExplosion"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterWeapon_GrenadeLauncher"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 19
+  },
+  {
+   "name": "UI_TouchInterface_Shooter",
+   "package": "/Game/Variant_Shooter/Input/UI_TouchInterface_Shooter",
+   "file": "Variant_Shooter/Input/UI_TouchInterface_Shooter.uasset",
+   "kind": "Widget Blueprint",
+   "parent": "UserWidget",
+   "native_root": "UserWidget",
+   "implements": [],
+   "size": {
+    "variables": 6,
+    "components": 0,
+    "functions": 8,
+    "statements": 175,
+    "nodes": 26,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 7,
+     "items": [
+      "message BPI_TouchInterface_C.Primary Thumbstick",
+      "message BPI_TouchInterface_C.Secondary Thumbstick",
+      "message BPI_TouchInterface_C.Touch Jump End",
+      "message BPI_TouchInterface_C.Touch Jump Start",
+      "message BPI_Touch_Shooter_C.Touch Shoot End",
+      "message BPI_Touch_Shooter_C.Touch Shoot Start",
+      "message BPI_Touch_Shooter_C.Touch Switch Weapon"
+     ]
+    },
+    "reparent_by_hand": {
+     "count": 1,
+     "items": [
+      "Widget Blueprint"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Touch_Shooter"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterCharacter",
+     "BP_ShooterPlayerController"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 20
+  },
+  {
+   "name": "BP_FirstPersonCharacter",
+   "package": "/Game/FirstPerson/Blueprints/BP_FirstPersonCharacter",
+   "file": "FirstPerson/Blueprints/BP_FirstPersonCharacter.uasset",
+   "kind": "Blueprint",
+   "parent": "Character",
+   "native_root": "Character",
+   "implements": [
+    "BPI_TouchInterface_C"
+   ],
+   "size": {
+    "variables": 3,
+    "components": 1,
+    "functions": 11,
+    "statements": 258,
+    "nodes": 30,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "implements BPI_TouchInterface_C"
+     ]
+    },
+    "anim_blueprint": {
+     "count": 2,
+     "items": [
+      "used by ABP_FP_Pistol",
+      "used by ABP_FP_Weapon"
+     ]
+    },
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_Shooter_ShootAtTarget"
+     ]
+    }
+   },
+   "depends_on": [
+    "ABP_FP_Copy"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_FirstPersonGameMode",
+     "ABP_FP_Pistol",
+     "ABP_FP_Weapon",
+     "BP_ShooterNPC",
+     "StateTreeCondition_HasLineOfSightToTarget",
+     "BP_ShooterCharacter",
+     "BP_ShooterPickup"
+    ],
+    "levels": [],
+    "state_trees": [
+     "ST_Shooter_ShootAtTarget"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 2,
+   "cycle": null,
+   "order": 21
+  },
+  {
+   "name": "ABP_FP_Weapon",
+   "package": "/Game/Variant_Shooter/Anims/ABP_FP_Weapon",
+   "file": "Variant_Shooter/Anims/ABP_FP_Weapon.uasset",
+   "kind": "Anim Blueprint",
+   "parent": "AnimInstance",
+   "native_root": "AnimInstance",
+   "implements": [],
+   "size": {
+    "variables": 22,
+    "components": 0,
+    "functions": 4,
+    "statements": 164,
+    "nodes": 50,
+    "members": 0
+   },
+   "constructs": {
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to BP_ShooterCharacter_C"
+     ]
+    },
+    "reparent_by_hand": {
+     "count": 1,
+     "items": [
+      "Anim Blueprint"
+     ]
+    },
+    "anim_blueprint": {
+     "count": 1,
+     "items": [
+      "is an Anim Blueprint"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_FirstPersonCharacter",
+    "BP_ShooterCharacter",
+    "Ctrl_HandAdjusment"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterWeaponBase"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 3,
+   "cycle": "C1",
+   "order": 22
+  },
+  {
+   "name": "BP_FirstPersonGameMode",
+   "package": "/Game/FirstPerson/Blueprints/BP_FirstPersonGameMode",
+   "file": "FirstPerson/Blueprints/BP_FirstPersonGameMode.uasset",
+   "kind": "Blueprint",
+   "parent": "GameModeBase",
+   "native_root": "GameModeBase",
+   "implements": [],
+   "size": {
+    "variables": 1,
+    "components": 0,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 1,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [
+    "BP_FirstPersonCharacter",
+    "BP_FirstPersonPlayerController"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [
+     "Lvl_FirstPerson"
+    ],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 3,
+   "cycle": null,
+   "order": 23
+  },
+  {
+   "name": "BP_ShooterCharacter",
+   "package": "/Game/Variant_Shooter/Blueprints/BP_ShooterCharacter",
+   "file": "Variant_Shooter/Blueprints/BP_ShooterCharacter.uasset",
+   "kind": "Blueprint",
+   "parent": "BP_FirstPersonCharacter_C",
+   "native_root": "Character",
+   "implements": [
+    "BPI_Pickups_C",
+    "BPI_WeaponHolder_C",
+    "BPI_Touch_Shooter_C",
+    "BPI_Teammate_C"
+   ],
+   "size": {
+    "variables": 11,
+    "components": 5,
+    "functions": 28,
+    "statements": 763,
+    "nodes": 194,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 10,
+     "items": [
+      "implements BPI_Pickups_C",
+      "implements BPI_Teammate_C",
+      "implements BPI_Touch_Shooter_C",
+      "implements BPI_WeaponHolder_C",
+      "message BPI_Shooter_C.IncrementTeamScore",
+      "message BPI_Shooter_C.Update Bullet UI x3",
+      "message BPI_Shooter_C.Update Health UI x2"
+     ]
+    },
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to PlayerController"
+     ]
+    },
+    "anim_blueprint": {
+     "count": 2,
+     "items": [
+      "used by ABP_FP_Pistol",
+      "used by ABP_FP_Weapon"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Pickups",
+    "BPI_Shooter",
+    "BPI_Teammate",
+    "BPI_Touch_Shooter",
+    "BPI_WeaponHolder",
+    "BP_FirstPersonCharacter",
+    "BP_ShooterWeaponBase",
+    "UI_TouchInterface_Shooter"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "ABP_FP_Pistol",
+     "ABP_FP_Weapon",
+     "BP_ShooterGameMode",
+     "BP_ShooterPlayerController",
+     "BP_ShooterPickup"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 3,
+   "cycle": "C1",
+   "order": 24
+  },
+  {
+   "name": "BP_ShooterWeaponBase",
+   "package": "/Game/Variant_Shooter/Blueprints/Pickups/BP_ShooterWeaponBase",
+   "file": "Variant_Shooter/Blueprints/Pickups/BP_ShooterWeaponBase.uasset",
+   "kind": "Blueprint",
+   "parent": "Actor",
+   "native_root": "Actor",
+   "implements": [],
+   "size": {
+    "variables": 20,
+    "components": 3,
+    "functions": 10,
+    "statements": 367,
+    "nodes": 123,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 8,
+     "items": [
+      "message BPI_WeaponHolder_C.Add Weapon Recoil",
+      "message BPI_WeaponHolder_C.Attach Weapon Meshes",
+      "message BPI_WeaponHolder_C.Get Weapon Target Location",
+      "message BPI_WeaponHolder_C.On Semi Weapon Refire",
+      "message BPI_WeaponHolder_C.On Weapon Activated",
+      "message BPI_WeaponHolder_C.On Weapon Deactivated",
+      "message BPI_WeaponHolder_C.Play Firing Montage",
+      "message BPI_WeaponHolder_C.Update Weapon HUD"
+     ]
+    },
+    "dispatchers": {
+     "count": 1,
+     "items": [
+      "bind OnDestroyed"
+     ]
+    },
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to Pawn"
+     ]
+    }
+   },
+   "depends_on": [
+    "ABP_FP_Weapon",
+    "ABP_TP_Rifle",
+    "BPI_WeaponHolder",
+    "BP_ShooterProjectileBase",
+    "BP_ShooterProjectile_Bullet"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterNPC",
+     "BP_ShooterCharacter",
+     "BPI_Pickups",
+     "BPI_WeaponHolder",
+     "BP_ShooterPickup",
+     "ST_WeaponTableRow",
+     "BP_ShooterWeapon_GrenadeLauncher",
+     "BP_ShooterWeapon_Pistol",
+     "BP_ShooterWeapon_Rifle"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 3,
+   "cycle": "C1",
+   "order": 25
+  },
+  {
+   "name": "BPI_Pickups",
+   "package": "/Game/Variant_Shooter/Blueprints/Pickups/BPI_Pickups",
+   "file": "Variant_Shooter/Blueprints/Pickups/BPI_Pickups.uasset",
+   "kind": "Blueprint Interface",
+   "parent": "Interface",
+   "native_root": "Interface",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 1,
+    "statements": 2,
+    "nodes": 1,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "is a Blueprint Interface"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_ShooterWeaponBase"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterCharacter"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 3,
+   "cycle": "C1",
+   "order": 26
+  },
+  {
+   "name": "BPI_WeaponHolder",
+   "package": "/Game/Variant_Shooter/Blueprints/Pickups/BPI_WeaponHolder",
+   "file": "Variant_Shooter/Blueprints/Pickups/BPI_WeaponHolder.uasset",
+   "kind": "Blueprint Interface",
+   "parent": "Interface",
+   "native_root": "Interface",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 9,
+    "statements": 18,
+    "nodes": 10,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "is a Blueprint Interface"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_ShooterWeaponBase"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterNPC",
+     "BP_ShooterCharacter",
+     "BP_ShooterPickup",
+     "BP_ShooterWeaponBase"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 3,
+   "cycle": "C1",
+   "order": 27
+  },
+  {
+   "name": "ABP_FP_Pistol",
+   "package": "/Game/Variant_Shooter/Anims/ABP_FP_Pistol",
+   "file": "Variant_Shooter/Anims/ABP_FP_Pistol.uasset",
+   "kind": "Anim Blueprint",
+   "parent": "AnimInstance",
+   "native_root": "AnimInstance",
+   "implements": [],
+   "size": {
+    "variables": 22,
+    "components": 0,
+    "functions": 4,
+    "statements": 164,
+    "nodes": 50,
+    "members": 0
+   },
+   "constructs": {
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to BP_ShooterCharacter_C"
+     ]
+    },
+    "reparent_by_hand": {
+     "count": 1,
+     "items": [
+      "Anim Blueprint"
+     ]
+    },
+    "anim_blueprint": {
+     "count": 1,
+     "items": [
+      "is an Anim Blueprint"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_FirstPersonCharacter",
+    "BP_ShooterCharacter",
+    "Ctrl_HandAdjusment_Pistol"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterWeapon_Pistol"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 4,
+   "cycle": null,
+   "order": 28
+  },
+  {
+   "name": "BP_ShooterPlayerController",
+   "package": "/Game/Variant_Shooter/Blueprints/BP_ShooterPlayerController",
+   "file": "Variant_Shooter/Blueprints/BP_ShooterPlayerController.uasset",
+   "kind": "Blueprint",
+   "parent": "BP_FirstPersonPlayerController_C",
+   "native_root": "PlayerController",
+   "implements": [
+    "BPI_Shooter_C",
+    "BPI_Teammate_C"
+   ],
+   "size": {
+    "variables": 2,
+    "components": 1,
+    "functions": 10,
+    "statements": 274,
+    "nodes": 53,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 4,
+     "items": [
+      "implements BPI_Shooter_C",
+      "implements BPI_Teammate_C",
+      "message BPI_Teammate_C.Set Team x2"
+     ]
+    },
+    "dispatchers": {
+     "count": 1,
+     "items": [
+      "assign OnDestroyed"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Shooter",
+    "BPI_Teammate",
+    "BP_FirstPersonPlayerController",
+    "BP_ShooterCharacter",
+    "UI_ShooterBulletCounter",
+    "UI_TouchInterface_Shooter"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterGameMode"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 4,
+   "cycle": null,
+   "order": 29
+  },
+  {
+   "name": "BP_ShooterWeapon_GrenadeLauncher",
+   "package": "/Game/Variant_Shooter/Blueprints/Pickups/Weapons/BP_ShooterWeapon_GrenadeLauncher",
+   "file": "Variant_Shooter/Blueprints/Pickups/Weapons/BP_ShooterWeapon_GrenadeLauncher.uasset",
+   "kind": "Blueprint",
+   "parent": "BP_ShooterWeaponBase_C",
+   "native_root": "Actor",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 4,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 8,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [
+    "BP_ShooterProjectileBase",
+    "BP_ShooterProjectile_Grenade",
+    "BP_ShooterWeaponBase"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [
+     "DT_WeaponList"
+    ],
+    "placed_actors": 0
+   },
+   "wave": 4,
+   "cycle": null,
+   "order": 30
+  },
+  {
+   "name": "BP_ShooterWeapon_Rifle",
+   "package": "/Game/Variant_Shooter/Blueprints/Pickups/Weapons/BP_ShooterWeapon_Rifle",
+   "file": "Variant_Shooter/Blueprints/Pickups/Weapons/BP_ShooterWeapon_Rifle.uasset",
+   "kind": "Blueprint",
+   "parent": "BP_ShooterWeaponBase_C",
+   "native_root": "Actor",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 1,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 8,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [
+    "BP_ShooterWeaponBase"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [
+     "DT_WeaponList"
+    ],
+    "placed_actors": 0
+   },
+   "wave": 4,
+   "cycle": null,
+   "order": 31
+  },
+  {
+   "name": "ST_WeaponTableRow",
+   "package": "/Game/Variant_Shooter/Blueprints/Pickups/ST_WeaponTableRow",
+   "file": "Variant_Shooter/Blueprints/Pickups/ST_WeaponTableRow.uasset",
+   "kind": "Struct",
+   "parent": null,
+   "native_root": null,
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 0,
+    "members": 2
+   },
+   "constructs": {},
+   "depends_on": [
+    "BP_ShooterWeaponBase"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterPickup"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [
+     "DT_WeaponList"
+    ],
+    "placed_actors": 0
+   },
+   "wave": 4,
+   "cycle": null,
+   "order": 32
+  },
+  {
+   "name": "BP_ShooterGameMode",
+   "package": "/Game/Variant_Shooter/Blueprints/BP_ShooterGameMode",
+   "file": "Variant_Shooter/Blueprints/BP_ShooterGameMode.uasset",
+   "kind": "Blueprint",
+   "parent": "GameModeBase",
+   "native_root": "GameModeBase",
+   "implements": [
+    "BPI_Shooter_C"
+   ],
+   "size": {
+    "variables": 5,
+    "components": 1,
+    "functions": 8,
+    "statements": 193,
+    "nodes": 47,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 2,
+     "items": [
+      "implements BPI_Shooter_C",
+      "message BPI_Teammate_C.Set Team"
+     ]
+    },
+    "dispatchers": {
+     "count": 2,
+     "items": [
+      "call Score Updated",
+      "declares Score Updated"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Shooter",
+    "BPI_Teammate",
+    "BP_ShooterCharacter",
+    "BP_ShooterPlayerController",
+    "UI_Shooter"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "UI_Shooter"
+    ],
+    "levels": [
+     "Lvl_ArenaShooter"
+    ],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 5,
+   "cycle": "C3",
+   "order": 33
+  },
+  {
+   "name": "BP_ShooterPickup",
+   "package": "/Game/Variant_Shooter/Blueprints/Pickups/BP_ShooterPickup",
+   "file": "Variant_Shooter/Blueprints/Pickups/BP_ShooterPickup.uasset",
+   "kind": "Blueprint",
+   "parent": "Actor",
+   "native_root": "Actor",
+   "implements": [],
+   "size": {
+    "variables": 13,
+    "components": 5,
+    "functions": 9,
+    "statements": 207,
+    "nodes": 44,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "message BPI_WeaponHolder_C.Add Weapon Class"
+     ]
+    },
+    "timelines": {
+     "count": 1,
+     "items": [
+      "SpawnIn"
+     ]
+    },
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to StaticMesh"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_WeaponHolder",
+    "BP_FirstPersonCharacter",
+    "BP_ShooterCharacter",
+    "BP_ShooterWeaponBase",
+    "ST_WeaponTableRow"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 5
+   },
+   "wave": 5,
+   "cycle": null,
+   "order": 34
+  },
+  {
+   "name": "BP_ShooterWeapon_Pistol",
+   "package": "/Game/Variant_Shooter/Blueprints/Pickups/Weapons/BP_ShooterWeapon_Pistol",
+   "file": "Variant_Shooter/Blueprints/Pickups/Weapons/BP_ShooterWeapon_Pistol.uasset",
+   "kind": "Blueprint",
+   "parent": "BP_ShooterWeaponBase_C",
+   "native_root": "Actor",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 3,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 8,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [
+    "ABP_FP_Pistol",
+    "ABP_TP_Pistol",
+    "BP_ShooterWeaponBase"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterNPC"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [
+     "DT_WeaponList"
+    ],
+    "placed_actors": 0
+   },
+   "wave": 5,
+   "cycle": null,
+   "order": 35
+  },
+  {
+   "name": "UI_Shooter",
+   "package": "/Game/Variant_Shooter/UI/UI_Shooter",
+   "file": "Variant_Shooter/UI/UI_Shooter.uasset",
+   "kind": "Widget Blueprint",
+   "parent": "UserWidget",
+   "native_root": "UserWidget",
+   "implements": [],
+   "size": {
+    "variables": 4,
+    "components": 0,
+    "functions": 2,
+    "statements": 59,
+    "nodes": 12,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "message BPI_Shooter_C.GetTeamScore"
+     ]
+    },
+    "dispatchers": {
+     "count": 1,
+     "items": [
+      "bind Score Updated"
+     ]
+    },
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to BP_ShooterGameMode_C"
+     ]
+    },
+    "reparent_by_hand": {
+     "count": 1,
+     "items": [
+      "Widget Blueprint"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Shooter",
+    "BP_ShooterGameMode"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterGameMode"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 5,
+   "cycle": "C3",
+   "order": 36
+  },
+  {
+   "name": "BP_ShooterAIController",
+   "package": "/Game/Variant_Shooter/Blueprints/AI/BP_ShooterAIController",
+   "file": "Variant_Shooter/Blueprints/AI/BP_ShooterAIController.uasset",
+   "kind": "Blueprint",
+   "parent": "AIController",
+   "native_root": "AIController",
+   "implements": [],
+   "size": {
+    "variables": 4,
+    "components": 3,
+    "functions": 5,
+    "statements": 96,
+    "nodes": 23,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "message NavMovementInterface.StopActiveMovement"
+     ]
+    },
+    "dispatchers": {
+     "count": 1,
+     "items": [
+      "bind On Death"
+     ]
+    },
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to BP_ShooterNPC_C"
+     ]
+    },
+    "state_tree": {
+     "count": 2,
+     "items": [
+      "used by ST_Shooter",
+      "used by ST_Shooter_ShootAtTarget"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_ShooterNPC"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterNPC",
+     "EnvQueryContext_Target",
+     "StateTreeTask_SenseEnemies"
+    ],
+    "levels": [],
+    "state_trees": [
+     "ST_Shooter",
+     "ST_Shooter_ShootAtTarget"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 6,
+   "cycle": "C2",
+   "order": 37
+  },
+  {
+   "name": "BP_ShooterNPC",
+   "package": "/Game/Variant_Shooter/Blueprints/AI/BP_ShooterNPC",
+   "file": "Variant_Shooter/Blueprints/AI/BP_ShooterNPC.uasset",
+   "kind": "Blueprint",
+   "parent": "BP_FirstPersonCharacter_C",
+   "native_root": "Character",
+   "implements": [
+    "BPI_WeaponHolder_C"
+   ],
+   "size": {
+    "variables": 12,
+    "components": 2,
+    "functions": 16,
+    "statements": 392,
+    "nodes": 114,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 2,
+     "items": [
+      "implements BPI_WeaponHolder_C",
+      "message BPI_Shooter_C.IncrementTeamScore"
+     ]
+    },
+    "dispatchers": {
+     "count": 2,
+     "items": [
+      "call On Death",
+      "declares On Death"
+     ]
+    },
+    "state_tree": {
+     "count": 2,
+     "items": [
+      "used by ST_Shooter",
+      "used by ST_Shooter_ShootAtTarget"
+     ]
+    }
+   },
+   "depends_on": [
+    "ABP_TP_Rifle",
+    "BPI_Shooter",
+    "BPI_WeaponHolder",
+    "BP_FirstPersonCharacter",
+    "BP_ShooterAIController",
+    "BP_ShooterWeaponBase",
+    "BP_ShooterWeapon_Pistol"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ShooterAIController",
+     "BP_ShooterNPCSpawner",
+     "StateTreeCondition_HasLineOfSightToTarget",
+     "StateTreeTask_SenseEnemies",
+     "StateTreeTask_ShootAtTarget"
+    ],
+    "levels": [],
+    "state_trees": [
+     "ST_Shooter",
+     "ST_Shooter_ShootAtTarget"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 6,
+   "cycle": "C2",
+   "order": 38
+  },
+  {
+   "name": "BP_ShooterNPCSpawner",
+   "package": "/Game/Variant_Shooter/Blueprints/AI/BP_ShooterNPCSpawner",
+   "file": "Variant_Shooter/Blueprints/AI/BP_ShooterNPCSpawner.uasset",
+   "kind": "Blueprint",
+   "parent": "Actor",
+   "native_root": "Actor",
+   "implements": [],
+   "size": {
+    "variables": 9,
+    "components": 4,
+    "functions": 3,
+    "statements": 110,
+    "nodes": 26,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "message BPI_Shooter_C.Should Spawn Enemy NPCs"
+     ]
+    },
+    "dispatchers": {
+     "count": 1,
+     "items": [
+      "bind On Death"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Shooter",
+    "BP_ShooterNPC"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 2
+   },
+   "wave": 7,
+   "cycle": null,
+   "order": 39
+  },
+  {
+   "name": "EnvQueryContext_Target",
+   "package": "/Game/Variant_Shooter/Blueprints/AI/EQS/EnvQueryContext_Target",
+   "file": "Variant_Shooter/Blueprints/AI/EQS/EnvQueryContext_Target.uasset",
+   "kind": "Blueprint",
+   "parent": "EnvQueryContext_BlueprintBase",
+   "native_root": "EnvQueryContext_BlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 1,
+    "statements": 32,
+    "nodes": 9,
+    "members": 0
+   },
+   "constructs": {
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to BP_ShooterAIController_C"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_ShooterAIController"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [
+     "EQS_FindSnipingLocation"
+    ],
+    "placed_actors": 0
+   },
+   "wave": 7,
+   "cycle": null,
+   "order": 40
+  },
+  {
+   "name": "StateTreeCondition_HasLineOfSightToTarget",
+   "package": "/Game/Variant_Shooter/Blueprints/AI/StateTree/StateTreeCondition_HasLineOfSightToTarget",
+   "file": "Variant_Shooter/Blueprints/AI/StateTree/StateTreeCondition_HasLineOfSightToTarget.uasset",
+   "kind": "Blueprint",
+   "parent": "StateTreeConditionBlueprintBase",
+   "native_root": "StateTreeConditionBlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 5,
+    "components": 0,
+    "functions": 2,
+    "statements": 123,
+    "nodes": 59,
+    "members": 0
+   },
+   "constructs": {
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_Shooter_ShootAtTarget"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_FirstPersonCharacter",
+    "BP_ShooterNPC"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [
+     "ST_Shooter_ShootAtTarget"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 7,
+   "cycle": null,
+   "order": 41
+  },
+  {
+   "name": "StateTreeTask_SenseEnemies",
+   "package": "/Game/Variant_Shooter/Blueprints/AI/StateTree/StateTreeTask_SenseEnemies",
+   "file": "Variant_Shooter/Blueprints/AI/StateTree/StateTreeTask_SenseEnemies.uasset",
+   "kind": "Blueprint",
+   "parent": "StateTreeTaskBlueprintBase",
+   "native_root": "StateTreeTaskBlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 11,
+    "components": 0,
+    "functions": 5,
+    "statements": 149,
+    "nodes": 101,
+    "members": 0
+   },
+   "constructs": {
+    "dispatchers": {
+     "count": 4,
+     "items": [
+      "bind OnTargetPerceptionForgotten",
+      "bind OnTargetPerceptionUpdated",
+      "unbind OnTargetPerceptionForgotten",
+      "unbind OnTargetPerceptionUpdated"
+     ]
+    },
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_Shooter"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_ShooterAIController",
+    "BP_ShooterNPC"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [
+     "ST_Shooter"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 7,
+   "cycle": null,
+   "order": 42
+  },
+  {
+   "name": "StateTreeTask_ShootAtTarget",
+   "package": "/Game/Variant_Shooter/Blueprints/AI/StateTree/StateTreeTask_ShootAtTarget",
+   "file": "Variant_Shooter/Blueprints/AI/StateTree/StateTreeTask_ShootAtTarget.uasset",
+   "kind": "Blueprint",
+   "parent": "StateTreeTaskBlueprintBase",
+   "native_root": "StateTreeTaskBlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 2,
+    "components": 0,
+    "functions": 3,
+    "statements": 43,
+    "nodes": 9,
+    "members": 0
+   },
+   "constructs": {
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_Shooter_ShootAtTarget"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_ShooterNPC"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [
+     "ST_Shooter_ShootAtTarget"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 7,
+   "cycle": null,
+   "order": 43
+  }
+ ],
+ "waves": [
+  [
+   "ABP_TP_Pistol",
+   "ABP_TP_Rifle",
+   "BP_FirstPersonCameraManager",
+   "BP_Shooter_GrenadeExplosion",
+   "BP_ShooterProjectileBase",
+   "BPI_Shooter",
+   "BPI_Teammate",
+   "BPI_Touch_Shooter",
+   "Ctrl_HandAdjusment",
+   "Ctrl_HandAdjusment_Pistol",
+   "CtrlRig_FPWarp",
+   "StateTreeTask_FaceActor",
+   "StateTreeTask_FaceLocation",
+   "StateTreeTask_SetRandomFloat",
+   "UI_ShooterBulletCounter"
+  ],
+  [
+   "ABP_FP_Copy",
+   "BP_FirstPersonPlayerController",
+   "BP_ShooterProjectile_Bullet",
+   "BP_ShooterProjectile_Grenade",
+   "UI_TouchInterface_Shooter"
+  ],
+  [
+   "BP_FirstPersonCharacter"
+  ],
+  [
+   "ABP_FP_Weapon",
+   "BP_FirstPersonGameMode",
+   "BP_ShooterCharacter",
+   "BP_ShooterWeaponBase",
+   "BPI_Pickups",
+   "BPI_WeaponHolder"
+  ],
+  [
+   "ABP_FP_Pistol",
+   "BP_ShooterPlayerController",
+   "BP_ShooterWeapon_GrenadeLauncher",
+   "BP_ShooterWeapon_Rifle",
+   "ST_WeaponTableRow"
+  ],
+  [
+   "BP_ShooterGameMode",
+   "BP_ShooterPickup",
+   "BP_ShooterWeapon_Pistol",
+   "UI_Shooter"
+  ],
+  [
+   "BP_ShooterAIController",
+   "BP_ShooterNPC"
+  ],
+  [
+   "BP_ShooterNPCSpawner",
+   "EnvQueryContext_Target",
+   "StateTreeCondition_HasLineOfSightToTarget",
+   "StateTreeTask_SenseEnemies",
+   "StateTreeTask_ShootAtTarget"
+  ]
+ ],
+ "cycles": [
+  [
+   "ABP_FP_Weapon",
+   "BP_ShooterCharacter",
+   "BP_ShooterWeaponBase",
+   "BPI_Pickups",
+   "BPI_WeaponHolder"
+  ],
+  [
+   "BP_ShooterAIController",
+   "BP_ShooterNPC"
+  ],
+  [
+   "BP_ShooterGameMode",
+   "UI_Shooter"
+  ]
+ ],
+ "unreadable": []
+}

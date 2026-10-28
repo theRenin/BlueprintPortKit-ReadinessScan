@@ -1,0 +1,1707 @@
+{
+ "generated": "2026-10-28",
+ "settings": {
+  "folders": [
+   "<YourProject>/Content\\ThirdPerson",
+   "<YourProject>/Content\\Variant_Combat"
+  ],
+  "content_root": "<YourProject>/Content",
+  "mount": "/Game",
+  "engine": "5.8",
+  "exclude": [
+   "__ExternalActors__",
+   "__ExternalObjects__",
+   "Developers",
+   "Collections"
+  ]
+ },
+ "summary": {
+  "entries": 37,
+  "blueprints": 37,
+  "structs": 0,
+  "enums": 0,
+  "without_hand_work": 32,
+  "with_hand_work": 5,
+  "with_checked_only": 26,
+  "cycles": 0,
+  "unreadable": 0
+ },
+ "constructs": {
+  "interfaces": {
+   "label": "Interfaces",
+   "note": "`swap_interface` moves the Blueprints that implement a Blueprint Interface onto a C++ interface (names with spaces match); a Blueprint can also keep its Blueprint Interface while it is ported. Message calls in levels and unloaded Blueprints stay a WARNING, and the old interface is deleted by hand",
+   "hand_work": false,
+   "blueprints": 16,
+   "occurrences": 30
+  },
+  "dispatchers": {
+   "label": "Event dispatchers",
+   "note": "the reparent preflight compares a dispatcher with the C++ delegate of its name, and `repoint_dispatcher_to_component` moves its users to a component; renaming or retyping a dispatcher stays hand work",
+   "hand_work": false,
+   "blueprints": 6,
+   "occurrences": 13
+  },
+  "timelines": {
+   "label": "Timelines",
+   "note": "no tool moves a Timeline: its curves and update logic are rewritten in C++ by hand",
+   "hand_work": true,
+   "blueprints": 2,
+   "occurrences": 2
+  },
+  "macros": {
+   "label": "Custom macros",
+   "note": "logic inside a macro graph is not seen by the call and delete tools",
+   "hand_work": true,
+   "blueprints": 0,
+   "occurrences": 0
+  },
+  "widget_bindings": {
+   "label": "Widget bindings",
+   "note": "the delete tools refuse while a binding names the member and `rename_member_variable` carries a variable binding along; a bound function in a re-point is a WARNING to bind by hand",
+   "hand_work": false,
+   "blueprints": 0,
+   "occurrences": 0
+  },
+  "replication": {
+   "label": "Replication",
+   "note": "the reparent preflight compares replication (flag, RepNotify, condition) and the re-point tools the RPC kind; a difference is a WARNING and a real run is refused",
+   "hand_work": false,
+   "blueprints": 0,
+   "occurrences": 0
+  },
+  "casts": {
+   "label": "Casts",
+   "note": "they keep working while the Blueprint they cast to stays (the usual port: the Blueprint becomes a thin child of the C++ class); only a cast to a Blueprint you delete or replace with a C++ class is hand work",
+   "hand_work": false,
+   "blueprints": 5,
+   "occurrences": 7
+  },
+  "soft_references": {
+   "label": "Soft references",
+   "note": "they keep working while the asset they point at stays; only one to a Blueprint you delete or replace with a C++ class is hand work",
+   "hand_work": false,
+   "blueprints": 0,
+   "occurrences": 0
+  },
+  "anim_blueprint": {
+   "label": "Anim Blueprint",
+   "note": "Property Access nodes cannot be edited: the delete tools only warn",
+   "hand_work": true,
+   "blueprints": 1,
+   "occurrences": 1
+  },
+  "reparent_by_hand": {
+   "label": "Reparent by hand",
+   "note": "`reparent_blueprint` refuses Widget, Animation and Level Blueprints: reparent them in the editor (File > Reparent Blueprint)",
+   "hand_work": true,
+   "blueprints": 3,
+   "occurrences": 3
+  },
+  "state_tree": {
+   "label": "State Tree",
+   "note": "`rebind_state_tree_property` and `remove_state_tree_binding` handle plain property bindings; output, task completion and property function bindings are hand work (the scan cannot tell them apart)",
+   "hand_work": false,
+   "blueprints": 11,
+   "occurrences": 11
+  }
+ },
+ "blueprints": [
+  {
+   "name": "ABP_Manny_Combat",
+   "package": "/Game/Variant_Combat/Anims/ABP_Manny_Combat",
+   "file": "Variant_Combat/Anims/ABP_Manny_Combat.uasset",
+   "kind": "Anim Blueprint",
+   "parent": "AnimInstance",
+   "native_root": "AnimInstance",
+   "implements": [],
+   "size": {
+    "variables": 37,
+    "components": 0,
+    "functions": 5,
+    "statements": 129,
+    "nodes": 53,
+    "members": 0
+   },
+   "constructs": {
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to Character"
+     ]
+    },
+    "reparent_by_hand": {
+     "count": 1,
+     "items": [
+      "Anim Blueprint"
+     ]
+    },
+    "anim_blueprint": {
+     "count": 1,
+     "items": [
+      "is an Anim Blueprint"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_CombatEnemy",
+     "BP_CombatCharacter"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 1
+  },
+  {
+   "name": "BP_CameraShake_Hit_Enemy",
+   "package": "/Game/Variant_Combat/Blueprints/BP_CameraShake_Hit_Enemy",
+   "file": "Variant_Combat/Blueprints/BP_CameraShake_Hit_Enemy.uasset",
+   "kind": "Blueprint",
+   "parent": "DefaultCameraShakeBase",
+   "native_root": "DefaultCameraShakeBase",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 0,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_CombatCharacter"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 2
+  },
+  {
+   "name": "BP_CameraShake_Hit_Player",
+   "package": "/Game/Variant_Combat/Blueprints/BP_CameraShake_Hit_Player",
+   "file": "Variant_Combat/Blueprints/BP_CameraShake_Hit_Player.uasset",
+   "kind": "Blueprint",
+   "parent": "DefaultCameraShakeBase",
+   "native_root": "DefaultCameraShakeBase",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 0,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_CombatCharacter"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 3
+  },
+  {
+   "name": "BP_CombatAIController",
+   "package": "/Game/Variant_Combat/Blueprints/AI/BP_CombatAIController",
+   "file": "Variant_Combat/Blueprints/AI/BP_CombatAIController.uasset",
+   "kind": "Blueprint",
+   "parent": "AIController",
+   "native_root": "AIController",
+   "implements": [],
+   "size": {
+    "variables": 1,
+    "components": 2,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 1,
+    "members": 0
+   },
+   "constructs": {
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_CombatEnemy"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_CombatEnemy"
+    ],
+    "levels": [],
+    "state_trees": [
+     "ST_CombatEnemy"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 4
+  },
+  {
+   "name": "BP_ThirdPersonCharacter",
+   "package": "/Game/ThirdPerson/Blueprints/BP_ThirdPersonCharacter",
+   "file": "ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset",
+   "kind": "Blueprint",
+   "parent": "Character",
+   "native_root": "Character",
+   "implements": [
+    "BPI_TouchInterface_C"
+   ],
+   "size": {
+    "variables": 2,
+    "components": 0,
+    "functions": 11,
+    "statements": 264,
+    "nodes": 32,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "implements BPI_TouchInterface_C"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ThirdPersonGameMode"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 5
+  },
+  {
+   "name": "BP_ThirdPersonPlayerController",
+   "package": "/Game/ThirdPerson/Blueprints/BP_ThirdPersonPlayerController",
+   "file": "ThirdPerson/Blueprints/BP_ThirdPersonPlayerController.uasset",
+   "kind": "Blueprint",
+   "parent": "PlayerController",
+   "native_root": "PlayerController",
+   "implements": [],
+   "size": {
+    "variables": 2,
+    "components": 1,
+    "functions": 2,
+    "statements": 75,
+    "nodes": 24,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_ThirdPersonGameMode"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 6
+  },
+  {
+   "name": "BPI_Activatable",
+   "package": "/Game/Variant_Combat/Blueprints/BPI_Activatable",
+   "file": "Variant_Combat/Blueprints/BPI_Activatable.uasset",
+   "kind": "Blueprint Interface",
+   "parent": "Interface",
+   "native_root": "Interface",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 3,
+    "statements": 6,
+    "nodes": 3,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "is a Blueprint Interface"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_Combat_EnemySpawner",
+     "BP_Combat_ActivationVolume"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 7
+  },
+  {
+   "name": "BPI_Attacker",
+   "package": "/Game/Variant_Combat/Blueprints/BPI_Attacker",
+   "file": "Variant_Combat/Blueprints/BPI_Attacker.uasset",
+   "kind": "Blueprint Interface",
+   "parent": "Interface",
+   "native_root": "Interface",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 3,
+    "statements": 6,
+    "nodes": 3,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "is a Blueprint Interface"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "AN_AttackCombo",
+     "AN_AttackDamage",
+     "AN_ChargedAttack",
+     "BP_CombatEnemy",
+     "BP_CombatCharacter"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 8
+  },
+  {
+   "name": "BPI_Damageable",
+   "package": "/Game/Variant_Combat/Blueprints/BPI_Damageable",
+   "file": "Variant_Combat/Blueprints/BPI_Damageable.uasset",
+   "kind": "Blueprint Interface",
+   "parent": "Interface",
+   "native_root": "Interface",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 4,
+    "statements": 8,
+    "nodes": 4,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "is a Blueprint Interface"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_CombatEnemy",
+     "BP_CombatCharacter",
+     "BP_Combat_DamageableBox",
+     "BP_Combat_Dummy",
+     "BP_Combat_LavaFloor"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 9
+  },
+  {
+   "name": "BPI_TouchInterface_Combat",
+   "package": "/Game/Variant_Combat/Input/BPI_TouchInterface_Combat",
+   "file": "Variant_Combat/Input/BPI_TouchInterface_Combat.uasset",
+   "kind": "Blueprint Interface",
+   "parent": "Interface",
+   "native_root": "Interface",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 7,
+    "statements": 14,
+    "nodes": 7,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "is a Blueprint Interface"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_CombatCharacter",
+     "UI_TouchInterface_Combat"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 10
+  },
+  {
+   "name": "EnvQueryContext_Player",
+   "package": "/Game/Variant_Combat/Blueprints/AI/EQS/EnvQueryContext_Player",
+   "file": "Variant_Combat/Blueprints/AI/EQS/EnvQueryContext_Player.uasset",
+   "kind": "Blueprint",
+   "parent": "EnvQueryContext_BlueprintBase",
+   "native_root": "EnvQueryContext_BlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 2,
+    "statements": 17,
+    "nodes": 7,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [
+     "EnvQuery_Evade",
+     "EnvQuery_Flank"
+    ],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 11
+  },
+  {
+   "name": "StateTreeCondition_IsCharacterGrounded",
+   "package": "/Game/Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeCondition_IsCharacterGrounded",
+   "file": "Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeCondition_IsCharacterGrounded.uasset",
+   "kind": "Blueprint",
+   "parent": "StateTreeConditionBlueprintBase",
+   "native_root": "StateTreeConditionBlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 2,
+    "components": 0,
+    "functions": 1,
+    "statements": 11,
+    "nodes": 8,
+    "members": 0
+   },
+   "constructs": {
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_CombatEnemy"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [
+     "ST_CombatEnemy"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 12
+  },
+  {
+   "name": "StateTreeTask_FaceActor",
+   "package": "/Game/Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeTask_FaceActor",
+   "file": "Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeTask_FaceActor.uasset",
+   "kind": "Blueprint",
+   "parent": "StateTreeTaskBlueprintBase",
+   "native_root": "StateTreeTaskBlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 2,
+    "components": 0,
+    "functions": 2,
+    "statements": 34,
+    "nodes": 7,
+    "members": 0
+   },
+   "constructs": {
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_CombatEnemy"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [
+     "ST_CombatEnemy"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 13
+  },
+  {
+   "name": "StateTreeTask_FaceLocation",
+   "package": "/Game/Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeTask_FaceLocation",
+   "file": "Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeTask_FaceLocation.uasset",
+   "kind": "Blueprint",
+   "parent": "StateTreeTaskBlueprintBase",
+   "native_root": "StateTreeTaskBlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 2,
+    "components": 0,
+    "functions": 2,
+    "statements": 34,
+    "nodes": 7,
+    "members": 0
+   },
+   "constructs": {
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_CombatEnemy"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [
+     "ST_CombatEnemy"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 14
+  },
+  {
+   "name": "StateTreeTask_GetPlayerInfo",
+   "package": "/Game/Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeTask_GetPlayerInfo",
+   "file": "Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeTask_GetPlayerInfo.uasset",
+   "kind": "Blueprint",
+   "parent": "StateTreeTaskBlueprintBase",
+   "native_root": "StateTreeTaskBlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 5,
+    "components": 0,
+    "functions": 1,
+    "statements": 125,
+    "nodes": 36,
+    "members": 0
+   },
+   "constructs": {
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_CombatEnemy"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [
+     "ST_CombatEnemy"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 15
+  },
+  {
+   "name": "StateTreeTask_SetCharacterSpeed",
+   "package": "/Game/Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeTask_SetCharacterSpeed",
+   "file": "Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeTask_SetCharacterSpeed.uasset",
+   "kind": "Blueprint",
+   "parent": "StateTreeTaskBlueprintBase",
+   "native_root": "StateTreeTaskBlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 2,
+    "components": 0,
+    "functions": 1,
+    "statements": 19,
+    "nodes": 5,
+    "members": 0
+   },
+   "constructs": {
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_CombatEnemy"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [
+     "ST_CombatEnemy"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 16
+  },
+  {
+   "name": "UI_LifeBar",
+   "package": "/Game/Variant_Combat/UI/UI_LifeBar",
+   "file": "Variant_Combat/UI/UI_LifeBar.uasset",
+   "kind": "Widget Blueprint",
+   "parent": "UserWidget",
+   "native_root": "UserWidget",
+   "implements": [],
+   "size": {
+    "variables": 1,
+    "components": 0,
+    "functions": 2,
+    "statements": 34,
+    "nodes": 6,
+    "members": 0
+   },
+   "constructs": {
+    "reparent_by_hand": {
+     "count": 1,
+     "items": [
+      "Widget Blueprint"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_CombatEnemy",
+     "BP_CombatCharacter"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 17
+  },
+  {
+   "name": "AN_AttackCombo",
+   "package": "/Game/Variant_Combat/Anims/AN_AttackCombo",
+   "file": "Variant_Combat/Anims/AN_AttackCombo.uasset",
+   "kind": "Blueprint",
+   "parent": "AnimNotify",
+   "native_root": "AnimNotify",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 2,
+    "statements": 24,
+    "nodes": 6,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "message BPI_Attacker_C.Check Combo"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Attacker"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [
+     "AM_ComboAttack"
+    ],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 18
+  },
+  {
+   "name": "AN_AttackDamage",
+   "package": "/Game/Variant_Combat/Anims/AN_AttackDamage",
+   "file": "Variant_Combat/Anims/AN_AttackDamage.uasset",
+   "kind": "Blueprint",
+   "parent": "AnimNotify",
+   "native_root": "AnimNotify",
+   "implements": [],
+   "size": {
+    "variables": 1,
+    "components": 0,
+    "functions": 2,
+    "statements": 24,
+    "nodes": 7,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "message BPI_Attacker_C.Do Attack Trace"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Attacker"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [
+     "AM_ChargedAttack",
+     "AM_ComboAttack"
+    ],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 19
+  },
+  {
+   "name": "AN_ChargedAttack",
+   "package": "/Game/Variant_Combat/Anims/AN_ChargedAttack",
+   "file": "Variant_Combat/Anims/AN_ChargedAttack.uasset",
+   "kind": "Blueprint",
+   "parent": "AnimNotify",
+   "native_root": "AnimNotify",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 2,
+    "statements": 24,
+    "nodes": 6,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "message BPI_Attacker_C.Check Charged Attack"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Attacker"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [
+     "AM_ChargedAttack"
+    ],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 20
+  },
+  {
+   "name": "BP_Combat_ActivationVolume",
+   "package": "/Game/Variant_Combat/Blueprints/Interactables/BP_Combat_ActivationVolume",
+   "file": "Variant_Combat/Blueprints/Interactables/BP_Combat_ActivationVolume.uasset",
+   "kind": "Blueprint",
+   "parent": "Actor",
+   "native_root": "Actor",
+   "implements": [],
+   "size": {
+    "variables": 2,
+    "components": 2,
+    "functions": 2,
+    "statements": 143,
+    "nodes": 21,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 2,
+     "items": [
+      "message BPI_Activatable_C.Activate Interaction",
+      "message BPI_Activatable_C.Deactivate Interaction"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Activatable"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 1
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 21
+  },
+  {
+   "name": "BP_Combat_DamageableBox",
+   "package": "/Game/Variant_Combat/Blueprints/Interactables/BP_Combat_DamageableBox",
+   "file": "Variant_Combat/Blueprints/Interactables/BP_Combat_DamageableBox.uasset",
+   "kind": "Blueprint",
+   "parent": "Actor",
+   "native_root": "Actor",
+   "implements": [
+    "BPI_Damageable_C"
+   ],
+   "size": {
+    "variables": 5,
+    "components": 2,
+    "functions": 6,
+    "statements": 193,
+    "nodes": 35,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "implements BPI_Damageable_C"
+     ]
+    },
+    "timelines": {
+     "count": 1,
+     "items": [
+      "Fade Timeline"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Damageable"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 52
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 22
+  },
+  {
+   "name": "BP_Combat_Dummy",
+   "package": "/Game/Variant_Combat/Blueprints/Interactables/BP_Combat_Dummy",
+   "file": "Variant_Combat/Blueprints/Interactables/BP_Combat_Dummy.uasset",
+   "kind": "Blueprint",
+   "parent": "Actor",
+   "native_root": "Actor",
+   "implements": [
+    "BPI_Damageable_C"
+   ],
+   "size": {
+    "variables": 4,
+    "components": 4,
+    "functions": 4,
+    "statements": 56,
+    "nodes": 16,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "implements BPI_Damageable_C"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Damageable"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 1
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 23
+  },
+  {
+   "name": "BP_Combat_LavaFloor",
+   "package": "/Game/Variant_Combat/Blueprints/Interactables/BP_Combat_LavaFloor",
+   "file": "Variant_Combat/Blueprints/Interactables/BP_Combat_LavaFloor.uasset",
+   "kind": "Blueprint",
+   "parent": "Actor",
+   "native_root": "Actor",
+   "implements": [],
+   "size": {
+    "variables": 2,
+    "components": 2,
+    "functions": 1,
+    "statements": 29,
+    "nodes": 6,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "message BPI_Damageable_C.Apply Damage"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Damageable"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 1
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 24
+  },
+  {
+   "name": "BP_CombatCharacter",
+   "package": "/Game/Variant_Combat/Blueprints/BP_CombatCharacter",
+   "file": "Variant_Combat/Blueprints/BP_CombatCharacter.uasset",
+   "kind": "Blueprint",
+   "parent": "Character",
+   "native_root": "Character",
+   "implements": [
+    "BPI_Attacker_C",
+    "BPI_Damageable_C",
+    "BPI_TouchInterface_Combat_C"
+   ],
+   "size": {
+    "variables": 35,
+    "components": 4,
+    "functions": 44,
+    "statements": 1247,
+    "nodes": 278,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 5,
+     "items": [
+      "implements BPI_Attacker_C",
+      "implements BPI_Damageable_C",
+      "implements BPI_TouchInterface_Combat_C",
+      "message BPI_Damageable_C.Apply Damage",
+      "message BPI_Damageable_C.Notify Danger"
+     ]
+    },
+    "timelines": {
+     "count": 1,
+     "items": [
+      "Toggle Shoulder Timeline"
+     ]
+    },
+    "casts": {
+     "count": 2,
+     "items": [
+      "cast to PlayerController",
+      "cast to UI_LifeBar_C"
+     ]
+    }
+   },
+   "depends_on": [
+    "ABP_Manny_Combat",
+    "BPI_Attacker",
+    "BPI_Damageable",
+    "BPI_TouchInterface_Combat",
+    "BP_CameraShake_Hit_Enemy",
+    "BP_CameraShake_Hit_Player",
+    "UI_LifeBar"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_CombatGameMode",
+     "BP_CombatPlayerController",
+     "BP_Combat_CheckpointVolume"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 25
+  },
+  {
+   "name": "BP_CombatEnemy",
+   "package": "/Game/Variant_Combat/Blueprints/AI/BP_CombatEnemy",
+   "file": "Variant_Combat/Blueprints/AI/BP_CombatEnemy.uasset",
+   "kind": "Blueprint",
+   "parent": "Character",
+   "native_root": "Character",
+   "implements": [
+    "BPI_Attacker_C",
+    "BPI_Damageable_C"
+   ],
+   "size": {
+    "variables": 27,
+    "components": 2,
+    "functions": 25,
+    "statements": 690,
+    "nodes": 180,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 3,
+     "items": [
+      "implements BPI_Attacker_C",
+      "implements BPI_Damageable_C",
+      "message BPI_Damageable_C.Apply Damage"
+     ]
+    },
+    "dispatchers": {
+     "count": 5,
+     "items": [
+      "call On Attack Completed x2",
+      "call On Enemy Died",
+      "declares On Attack Completed",
+      "declares On Enemy Died"
+     ]
+    },
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to UI_LifeBar_C"
+     ]
+    },
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_CombatEnemy"
+     ]
+    }
+   },
+   "depends_on": [
+    "ABP_Manny_Combat",
+    "BPI_Attacker",
+    "BPI_Damageable",
+    "BP_CombatAIController",
+    "UI_LifeBar"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_Combat_EnemySpawner",
+     "EnvQueryContext_Danger",
+     "StateTreeCondition_IsInDanger",
+     "StateTreeTask_ChargedAttack",
+     "StateTreeTask_ComboAttack",
+     "StateTreeTask_WaitForLanding"
+    ],
+    "levels": [],
+    "state_trees": [
+     "ST_CombatEnemy"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 26
+  },
+  {
+   "name": "BP_ThirdPersonGameMode",
+   "package": "/Game/ThirdPerson/Blueprints/BP_ThirdPersonGameMode",
+   "file": "ThirdPerson/Blueprints/BP_ThirdPersonGameMode.uasset",
+   "kind": "Blueprint",
+   "parent": "GameModeBase",
+   "native_root": "GameModeBase",
+   "implements": [],
+   "size": {
+    "variables": 1,
+    "components": 0,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 1,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [
+    "BP_ThirdPersonCharacter",
+    "BP_ThirdPersonPlayerController"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [
+     "Lvl_ThirdPerson"
+    ],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 27
+  },
+  {
+   "name": "UI_TouchInterface_Combat",
+   "package": "/Game/Variant_Combat/Input/UI_TouchInterface_Combat",
+   "file": "Variant_Combat/Input/UI_TouchInterface_Combat.uasset",
+   "kind": "Widget Blueprint",
+   "parent": "UserWidget",
+   "native_root": "UserWidget",
+   "implements": [],
+   "size": {
+    "variables": 6,
+    "components": 0,
+    "functions": 8,
+    "statements": 178,
+    "nodes": 26,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 7,
+     "items": [
+      "message BPI_TouchInterface_Combat_C.Primary Thumbstick",
+      "message BPI_TouchInterface_Combat_C.Secondary Thumbstick",
+      "message BPI_TouchInterface_Combat_C.Touch Charged Attack End",
+      "message BPI_TouchInterface_Combat_C.Touch Charged Attack Start",
+      "message BPI_TouchInterface_Combat_C.Touch Combo Attack End",
+      "message BPI_TouchInterface_Combat_C.Touch Combo Attack Start",
+      "message BPI_TouchInterface_Combat_C.Touch Toggle Camera"
+     ]
+    },
+    "reparent_by_hand": {
+     "count": 1,
+     "items": [
+      "Widget Blueprint"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_TouchInterface_Combat"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_CombatPlayerController"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 28
+  },
+  {
+   "name": "BP_Combat_EnemySpawner",
+   "package": "/Game/Variant_Combat/Blueprints/AI/BP_Combat_EnemySpawner",
+   "file": "Variant_Combat/Blueprints/AI/BP_Combat_EnemySpawner.uasset",
+   "kind": "Blueprint",
+   "parent": "Actor",
+   "native_root": "Actor",
+   "implements": [
+    "BPI_Activatable_C"
+   ],
+   "size": {
+    "variables": 11,
+    "components": 4,
+    "functions": 6,
+    "statements": 230,
+    "nodes": 33,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 2,
+     "items": [
+      "implements BPI_Activatable_C",
+      "message BPI_Activatable_C.Activate Interaction"
+     ]
+    },
+    "dispatchers": {
+     "count": 1,
+     "items": [
+      "bind On Enemy Died"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Activatable",
+    "BP_CombatEnemy"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 4
+   },
+   "wave": 2,
+   "cycle": null,
+   "order": 29
+  },
+  {
+   "name": "BP_CombatPlayerController",
+   "package": "/Game/Variant_Combat/Blueprints/BP_CombatPlayerController",
+   "file": "Variant_Combat/Blueprints/BP_CombatPlayerController.uasset",
+   "kind": "Blueprint",
+   "parent": "PlayerController",
+   "native_root": "PlayerController",
+   "implements": [],
+   "size": {
+    "variables": 3,
+    "components": 1,
+    "functions": 5,
+    "statements": 134,
+    "nodes": 37,
+    "members": 0
+   },
+   "constructs": {
+    "dispatchers": {
+     "count": 1,
+     "items": [
+      "bind OnDestroyed"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_CombatCharacter",
+    "UI_TouchInterface_Combat"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_CombatGameMode",
+     "BP_Combat_CheckpointVolume"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 2,
+   "cycle": null,
+   "order": 30
+  },
+  {
+   "name": "EnvQueryContext_Danger",
+   "package": "/Game/Variant_Combat/Blueprints/AI/EQS/EnvQueryContext_Danger",
+   "file": "Variant_Combat/Blueprints/AI/EQS/EnvQueryContext_Danger.uasset",
+   "kind": "Blueprint",
+   "parent": "EnvQueryContext_BlueprintBase",
+   "native_root": "EnvQueryContext_BlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 2,
+    "statements": 26,
+    "nodes": 10,
+    "members": 0
+   },
+   "constructs": {
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to BP_CombatEnemy_C"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_CombatEnemy"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [
+     "EnvQuery_Evade"
+    ],
+    "placed_actors": 0
+   },
+   "wave": 2,
+   "cycle": null,
+   "order": 31
+  },
+  {
+   "name": "StateTreeCondition_IsInDanger",
+   "package": "/Game/Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeCondition_IsInDanger",
+   "file": "Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeCondition_IsInDanger.uasset",
+   "kind": "Blueprint",
+   "parent": "StateTreeConditionBlueprintBase",
+   "native_root": "StateTreeConditionBlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 4,
+    "components": 0,
+    "functions": 1,
+    "statements": 27,
+    "nodes": 23,
+    "members": 0
+   },
+   "constructs": {
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_CombatEnemy"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_CombatEnemy"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [
+     "ST_CombatEnemy"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 2,
+   "cycle": null,
+   "order": 32
+  },
+  {
+   "name": "StateTreeTask_ChargedAttack",
+   "package": "/Game/Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeTask_ChargedAttack",
+   "file": "Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeTask_ChargedAttack.uasset",
+   "kind": "Blueprint",
+   "parent": "StateTreeTaskBlueprintBase",
+   "native_root": "StateTreeTaskBlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 1,
+    "components": 0,
+    "functions": 3,
+    "statements": 56,
+    "nodes": 11,
+    "members": 0
+   },
+   "constructs": {
+    "dispatchers": {
+     "count": 2,
+     "items": [
+      "bind On Attack Completed",
+      "unbind On Attack Completed"
+     ]
+    },
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_CombatEnemy"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_CombatEnemy"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [
+     "ST_CombatEnemy"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 2,
+   "cycle": null,
+   "order": 33
+  },
+  {
+   "name": "StateTreeTask_ComboAttack",
+   "package": "/Game/Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeTask_ComboAttack",
+   "file": "Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeTask_ComboAttack.uasset",
+   "kind": "Blueprint",
+   "parent": "StateTreeTaskBlueprintBase",
+   "native_root": "StateTreeTaskBlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 1,
+    "components": 0,
+    "functions": 3,
+    "statements": 55,
+    "nodes": 11,
+    "members": 0
+   },
+   "constructs": {
+    "dispatchers": {
+     "count": 2,
+     "items": [
+      "bind On Attack Completed",
+      "unbind On Attack Completed"
+     ]
+    },
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_CombatEnemy"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_CombatEnemy"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [
+     "ST_CombatEnemy"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 2,
+   "cycle": null,
+   "order": 34
+  },
+  {
+   "name": "StateTreeTask_WaitForLanding",
+   "package": "/Game/Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeTask_WaitForLanding",
+   "file": "Variant_Combat/Blueprints/AI/StateTreeTasks/StateTreeTask_WaitForLanding.uasset",
+   "kind": "Blueprint",
+   "parent": "StateTreeTaskBlueprintBase",
+   "native_root": "StateTreeTaskBlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 1,
+    "components": 0,
+    "functions": 3,
+    "statements": 52,
+    "nodes": 8,
+    "members": 0
+   },
+   "constructs": {
+    "dispatchers": {
+     "count": 2,
+     "items": [
+      "bind LandedDelegate",
+      "unbind LandedDelegate"
+     ]
+    },
+    "state_tree": {
+     "count": 1,
+     "items": [
+      "used by ST_CombatEnemy"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_CombatEnemy"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [
+     "ST_CombatEnemy"
+    ],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 2,
+   "cycle": null,
+   "order": 35
+  },
+  {
+   "name": "BP_Combat_CheckpointVolume",
+   "package": "/Game/Variant_Combat/Blueprints/Interactables/BP_Combat_CheckpointVolume",
+   "file": "Variant_Combat/Blueprints/Interactables/BP_Combat_CheckpointVolume.uasset",
+   "kind": "Blueprint",
+   "parent": "Actor",
+   "native_root": "Actor",
+   "implements": [],
+   "size": {
+    "variables": 1,
+    "components": 2,
+    "functions": 1,
+    "statements": 37,
+    "nodes": 11,
+    "members": 0
+   },
+   "constructs": {
+    "casts": {
+     "count": 2,
+     "items": [
+      "cast to BP_CombatCharacter_C",
+      "cast to BP_CombatPlayerController_C"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_CombatCharacter",
+    "BP_CombatPlayerController"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 1
+   },
+   "wave": 3,
+   "cycle": null,
+   "order": 36
+  },
+  {
+   "name": "BP_CombatGameMode",
+   "package": "/Game/Variant_Combat/Blueprints/BP_CombatGameMode",
+   "file": "Variant_Combat/Blueprints/BP_CombatGameMode.uasset",
+   "kind": "Blueprint",
+   "parent": "GameModeBase",
+   "native_root": "GameModeBase",
+   "implements": [],
+   "size": {
+    "variables": 3,
+    "components": 1,
+    "functions": 2,
+    "statements": 103,
+    "nodes": 26,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [
+    "BP_CombatCharacter",
+    "BP_CombatPlayerController"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [
+     "Lvl_Combat"
+    ],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 3,
+   "cycle": null,
+   "order": 37
+  }
+ ],
+ "waves": [
+  [
+   "ABP_Manny_Combat",
+   "BP_CameraShake_Hit_Enemy",
+   "BP_CameraShake_Hit_Player",
+   "BP_CombatAIController",
+   "BP_ThirdPersonCharacter",
+   "BP_ThirdPersonPlayerController",
+   "BPI_Activatable",
+   "BPI_Attacker",
+   "BPI_Damageable",
+   "BPI_TouchInterface_Combat",
+   "EnvQueryContext_Player",
+   "StateTreeCondition_IsCharacterGrounded",
+   "StateTreeTask_FaceActor",
+   "StateTreeTask_FaceLocation",
+   "StateTreeTask_GetPlayerInfo",
+   "StateTreeTask_SetCharacterSpeed",
+   "UI_LifeBar"
+  ],
+  [
+   "AN_AttackCombo",
+   "AN_AttackDamage",
+   "AN_ChargedAttack",
+   "BP_Combat_ActivationVolume",
+   "BP_Combat_DamageableBox",
+   "BP_Combat_Dummy",
+   "BP_Combat_LavaFloor",
+   "BP_CombatCharacter",
+   "BP_CombatEnemy",
+   "BP_ThirdPersonGameMode",
+   "UI_TouchInterface_Combat"
+  ],
+  [
+   "BP_Combat_EnemySpawner",
+   "BP_CombatPlayerController",
+   "EnvQueryContext_Danger",
+   "StateTreeCondition_IsInDanger",
+   "StateTreeTask_ChargedAttack",
+   "StateTreeTask_ComboAttack",
+   "StateTreeTask_WaitForLanding"
+  ],
+  [
+   "BP_Combat_CheckpointVolume",
+   "BP_CombatGameMode"
+  ]
+ ],
+ "cycles": [],
+ "unreadable": []
+}

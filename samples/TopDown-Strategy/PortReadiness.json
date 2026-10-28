@@ -1,0 +1,711 @@
+{
+ "generated": "2026-10-28",
+ "settings": {
+  "folders": [
+   "<YourProject>/Content\\TopDown",
+   "<YourProject>/Content\\Variant_Strategy"
+  ],
+  "content_root": "<YourProject>/Content",
+  "mount": "/Game",
+  "engine": "5.8",
+  "exclude": [
+   "__ExternalActors__",
+   "__ExternalObjects__",
+   "Developers",
+   "Collections"
+  ]
+ },
+ "summary": {
+  "entries": 14,
+  "blueprints": 13,
+  "structs": 0,
+  "enums": 1,
+  "without_hand_work": 12,
+  "with_hand_work": 2,
+  "with_checked_only": 7,
+  "cycles": 1,
+  "unreadable": 0
+ },
+ "constructs": {
+  "interfaces": {
+   "label": "Interfaces",
+   "note": "`swap_interface` moves the Blueprints that implement a Blueprint Interface onto a C++ interface (names with spaces match); a Blueprint can also keep its Blueprint Interface while it is ported. Message calls in levels and unloaded Blueprints stay a WARNING, and the old interface is deleted by hand",
+   "hand_work": false,
+   "blueprints": 7,
+   "occurrences": 22
+  },
+  "dispatchers": {
+   "label": "Event dispatchers",
+   "note": "the reparent preflight compares a dispatcher with the C++ delegate of its name, and `repoint_dispatcher_to_component` moves its users to a component; renaming or retyping a dispatcher stays hand work",
+   "hand_work": false,
+   "blueprints": 2,
+   "occurrences": 2
+  },
+  "timelines": {
+   "label": "Timelines",
+   "note": "no tool moves a Timeline: its curves and update logic are rewritten in C++ by hand",
+   "hand_work": true,
+   "blueprints": 0,
+   "occurrences": 0
+  },
+  "macros": {
+   "label": "Custom macros",
+   "note": "logic inside a macro graph is not seen by the call and delete tools",
+   "hand_work": true,
+   "blueprints": 0,
+   "occurrences": 0
+  },
+  "widget_bindings": {
+   "label": "Widget bindings",
+   "note": "the delete tools refuse while a binding names the member and `rename_member_variable` carries a variable binding along; a bound function in a re-point is a WARNING to bind by hand",
+   "hand_work": false,
+   "blueprints": 0,
+   "occurrences": 0
+  },
+  "replication": {
+   "label": "Replication",
+   "note": "the reparent preflight compares replication (flag, RepNotify, condition) and the re-point tools the RPC kind; a difference is a WARNING and a real run is refused",
+   "hand_work": false,
+   "blueprints": 0,
+   "occurrences": 0
+  },
+  "casts": {
+   "label": "Casts",
+   "note": "they keep working while the Blueprint they cast to stays (the usual port: the Blueprint becomes a thin child of the C++ class); only a cast to a Blueprint you delete or replace with a C++ class is hand work",
+   "hand_work": false,
+   "blueprints": 2,
+   "occurrences": 2
+  },
+  "soft_references": {
+   "label": "Soft references",
+   "note": "they keep working while the asset they point at stays; only one to a Blueprint you delete or replace with a C++ class is hand work",
+   "hand_work": false,
+   "blueprints": 0,
+   "occurrences": 0
+  },
+  "anim_blueprint": {
+   "label": "Anim Blueprint",
+   "note": "Property Access nodes cannot be edited: the delete tools only warn",
+   "hand_work": true,
+   "blueprints": 0,
+   "occurrences": 0
+  },
+  "reparent_by_hand": {
+   "label": "Reparent by hand",
+   "note": "`reparent_blueprint` refuses Widget, Animation and Level Blueprints: reparent them in the editor (File > Reparent Blueprint)",
+   "hand_work": true,
+   "blueprints": 2,
+   "occurrences": 2
+  },
+  "state_tree": {
+   "label": "State Tree",
+   "note": "`rebind_state_tree_property` and `remove_state_tree_binding` handle plain property bindings; output, task completion and property function bindings are hand work (the scan cannot tell them apart)",
+   "hand_work": false,
+   "blueprints": 0,
+   "occurrences": 0
+  }
+ },
+ "blueprints": [
+  {
+   "name": "BP_AssetGuideline_Strategy",
+   "package": "/Game/Variant_Strategy/Blueprints/BP_AssetGuideline_Strategy",
+   "file": "Variant_Strategy/Blueprints/BP_AssetGuideline_Strategy.uasset",
+   "kind": "Blueprint",
+   "parent": "AssetGuideline",
+   "native_root": "AssetGuideline",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 0,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 1
+  },
+  {
+   "name": "BP_TopDownCharacter",
+   "package": "/Game/TopDown/Blueprints/BP_TopDownCharacter",
+   "file": "TopDown/Blueprints/BP_TopDownCharacter.uasset",
+   "kind": "Blueprint",
+   "parent": "Character",
+   "native_root": "Character",
+   "implements": [],
+   "size": {
+    "variables": 2,
+    "components": 2,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 1,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_TopDownGameMode"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 2
+  },
+  {
+   "name": "BP_TopDownController",
+   "package": "/Game/TopDown/Blueprints/BP_TopDownController",
+   "file": "TopDown/Blueprints/BP_TopDownController.uasset",
+   "kind": "Blueprint",
+   "parent": "PlayerController",
+   "native_root": "PlayerController",
+   "implements": [],
+   "size": {
+    "variables": 4,
+    "components": 0,
+    "functions": 15,
+    "statements": 440,
+    "nodes": 75,
+    "members": 0
+   },
+   "constructs": {
+    "dispatchers": {
+     "count": 1,
+     "items": [
+      "assign OnDestroyed"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_TopDownGameMode"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 3
+  },
+  {
+   "name": "BPI_Strategy",
+   "package": "/Game/Variant_Strategy/Blueprints/BPI_Strategy",
+   "file": "Variant_Strategy/Blueprints/BPI_Strategy.uasset",
+   "kind": "Blueprint Interface",
+   "parent": "Interface",
+   "native_root": "Interface",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 11,
+    "statements": 22,
+    "nodes": 15,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "is a Blueprint Interface"
+     ]
+    }
+   },
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [
+     "BP_StrategyHUD",
+     "BP_StrategyPawn",
+     "BP_StrategyPlayerController",
+     "BP_StrategyUnit",
+     "EnvQueryContext_MoveGoal",
+     "UI_Strategy"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 4
+  },
+  {
+   "name": "Enum_InputModes",
+   "package": "/Game/Variant_Strategy/Input/Enum_InputModes",
+   "file": "Variant_Strategy/Input/Enum_InputModes.uasset",
+   "kind": "Enum",
+   "parent": null,
+   "native_root": null,
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 0,
+    "members": 3
+   },
+   "constructs": {},
+   "depends_on": [],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 0,
+   "cycle": null,
+   "order": 5
+  },
+  {
+   "name": "BP_StrategyPawn",
+   "package": "/Game/Variant_Strategy/Blueprints/BP_StrategyPawn",
+   "file": "Variant_Strategy/Blueprints/BP_StrategyPawn.uasset",
+   "kind": "Blueprint",
+   "parent": "Pawn",
+   "native_root": "Pawn",
+   "implements": [
+    "BPI_Strategy_C"
+   ],
+   "size": {
+    "variables": 3,
+    "components": 3,
+    "functions": 11,
+    "statements": 127,
+    "nodes": 10,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "implements BPI_Strategy_C"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Strategy"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_StrategyGameMode",
+     "BP_StrategyPlayerController"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 6
+  },
+  {
+   "name": "BP_StrategyUnit",
+   "package": "/Game/Variant_Strategy/Blueprints/BP_StrategyUnit",
+   "file": "Variant_Strategy/Blueprints/BP_StrategyUnit.uasset",
+   "kind": "Blueprint",
+   "parent": "Character",
+   "native_root": "Character",
+   "implements": [
+    "BPI_Strategy_C"
+   ],
+   "size": {
+    "variables": 6,
+    "components": 1,
+    "functions": 18,
+    "statements": 350,
+    "nodes": 84,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 2,
+     "items": [
+      "implements BPI_Strategy_C",
+      "message BPI_Strategy_C.Interact"
+     ]
+    },
+    "dispatchers": {
+     "count": 1,
+     "items": [
+      "bind OnQueryFinishedEvent"
+     ]
+    },
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to BP_StrategyUnit_C"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Strategy"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_StrategyHUD",
+     "BP_StrategyPlayerController"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 6
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 7
+  },
+  {
+   "name": "BP_TopDownGameMode",
+   "package": "/Game/TopDown/Blueprints/BP_TopDownGameMode",
+   "file": "TopDown/Blueprints/BP_TopDownGameMode.uasset",
+   "kind": "Blueprint",
+   "parent": "GameModeBase",
+   "native_root": "GameModeBase",
+   "implements": [],
+   "size": {
+    "variables": 1,
+    "components": 0,
+    "functions": 0,
+    "statements": 0,
+    "nodes": 1,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [
+    "BP_TopDownCharacter",
+    "BP_TopDownController"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [
+     "Lvl_TopDown"
+    ],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 8
+  },
+  {
+   "name": "EnvQueryContext_MoveGoal",
+   "package": "/Game/Variant_Strategy/Blueprints/EnvQueryContext_MoveGoal",
+   "file": "Variant_Strategy/Blueprints/EnvQueryContext_MoveGoal.uasset",
+   "kind": "Blueprint",
+   "parent": "EnvQueryContext_BlueprintBase",
+   "native_root": "EnvQueryContext_BlueprintBase",
+   "implements": [],
+   "size": {
+    "variables": 0,
+    "components": 0,
+    "functions": 1,
+    "statements": 21,
+    "nodes": 3,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "message BPI_Strategy_C.Get Movement Goal"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Strategy"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [],
+    "state_trees": [],
+    "other": [
+     "EnvQuery_MoveUnitAddtional",
+     "EnvQuery_MoveUnitClosest"
+    ],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 9
+  },
+  {
+   "name": "UI_Strategy",
+   "package": "/Game/Variant_Strategy/UI/UI_Strategy",
+   "file": "Variant_Strategy/UI/UI_Strategy.uasset",
+   "kind": "Widget Blueprint",
+   "parent": "UserWidget",
+   "native_root": "UserWidget",
+   "implements": [
+    "BPI_Strategy_C"
+   ],
+   "size": {
+    "variables": 2,
+    "components": 0,
+    "functions": 12,
+    "statements": 153,
+    "nodes": 19,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 1,
+     "items": [
+      "implements BPI_Strategy_C"
+     ]
+    },
+    "reparent_by_hand": {
+     "count": 1,
+     "items": [
+      "Widget Blueprint"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Strategy"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_StrategyHUD"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 1,
+   "cycle": null,
+   "order": 10
+  },
+  {
+   "name": "BP_StrategyHUD",
+   "package": "/Game/Variant_Strategy/Blueprints/BP_StrategyHUD",
+   "file": "Variant_Strategy/Blueprints/BP_StrategyHUD.uasset",
+   "kind": "Blueprint",
+   "parent": "HUD",
+   "native_root": "HUD",
+   "implements": [
+    "BPI_Strategy_C"
+   ],
+   "size": {
+    "variables": 7,
+    "components": 1,
+    "functions": 14,
+    "statements": 291,
+    "nodes": 47,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 3,
+     "items": [
+      "implements BPI_Strategy_C",
+      "message BPI_Strategy_C.Drag Select Result",
+      "message BPI_Strategy_C.Pass Selected Units"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Strategy",
+    "BP_StrategyUnit",
+    "UI_Strategy"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_StrategyGameMode"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 2,
+   "cycle": null,
+   "order": 11
+  },
+  {
+   "name": "BP_StrategyPlayerController",
+   "package": "/Game/Variant_Strategy/Blueprints/BP_StrategyPlayerController",
+   "file": "Variant_Strategy/Blueprints/BP_StrategyPlayerController.uasset",
+   "kind": "Blueprint",
+   "parent": "PlayerController",
+   "native_root": "PlayerController",
+   "implements": [
+    "BPI_Strategy_C"
+   ],
+   "size": {
+    "variables": 12,
+    "components": 1,
+    "functions": 48,
+    "statements": 1548,
+    "nodes": 308,
+    "members": 0
+   },
+   "constructs": {
+    "interfaces": {
+     "count": 13,
+     "items": [
+      "implements BPI_Strategy_C",
+      "message BPI_Strategy_C.Drag Select Update x4",
+      "message BPI_Strategy_C.Move Unit To",
+      "message BPI_Strategy_C.Unit Deselected x2",
+      "message BPI_Strategy_C.Unit Selected x3",
+      "message BPI_Strategy_C.Zoom Modifier x2"
+     ]
+    },
+    "casts": {
+     "count": 1,
+     "items": [
+      "cast to BP_StrategyPawn_C"
+     ]
+    }
+   },
+   "depends_on": [
+    "BPI_Strategy",
+    "BP_StrategyPawn",
+    "BP_StrategyUnit",
+    "WBP_StrategyMobileControls"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_StrategyGameMode",
+     "WBP_StrategyMobileControls"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 2,
+   "cycle": "C1",
+   "order": 12
+  },
+  {
+   "name": "WBP_StrategyMobileControls",
+   "package": "/Game/Variant_Strategy/UI/WBP_StrategyMobileControls",
+   "file": "Variant_Strategy/UI/WBP_StrategyMobileControls.uasset",
+   "kind": "Widget Blueprint",
+   "parent": "UserWidget",
+   "native_root": "UserWidget",
+   "implements": [],
+   "size": {
+    "variables": 5,
+    "components": 0,
+    "functions": 4,
+    "statements": 65,
+    "nodes": 13,
+    "members": 0
+   },
+   "constructs": {
+    "reparent_by_hand": {
+     "count": 1,
+     "items": [
+      "Widget Blueprint"
+     ]
+    }
+   },
+   "depends_on": [
+    "BP_StrategyPlayerController"
+   ],
+   "referenced_by": {
+    "blueprints": [
+     "BP_StrategyPlayerController"
+    ],
+    "levels": [],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 2,
+   "cycle": "C1",
+   "order": 13
+  },
+  {
+   "name": "BP_StrategyGameMode",
+   "package": "/Game/Variant_Strategy/Blueprints/BP_StrategyGameMode",
+   "file": "Variant_Strategy/Blueprints/BP_StrategyGameMode.uasset",
+   "kind": "Blueprint",
+   "parent": "GameModeBase",
+   "native_root": "GameModeBase",
+   "implements": [],
+   "size": {
+    "variables": 1,
+    "components": 0,
+    "functions": 2,
+    "statements": 14,
+    "nodes": 5,
+    "members": 0
+   },
+   "constructs": {},
+   "depends_on": [
+    "BP_StrategyHUD",
+    "BP_StrategyPawn",
+    "BP_StrategyPlayerController"
+   ],
+   "referenced_by": {
+    "blueprints": [],
+    "levels": [
+     "LVL_Strategy"
+    ],
+    "state_trees": [],
+    "other": [],
+    "placed_actors": 0
+   },
+   "wave": 3,
+   "cycle": null,
+   "order": 14
+  }
+ ],
+ "waves": [
+  [
+   "BP_AssetGuideline_Strategy",
+   "BP_TopDownCharacter",
+   "BP_TopDownController",
+   "BPI_Strategy",
+   "Enum_InputModes"
+  ],
+  [
+   "BP_StrategyPawn",
+   "BP_StrategyUnit",
+   "BP_TopDownGameMode",
+   "EnvQueryContext_MoveGoal",
+   "UI_Strategy"
+  ],
+  [
+   "BP_StrategyHUD",
+   "BP_StrategyPlayerController",
+   "WBP_StrategyMobileControls"
+  ],
+  [
+   "BP_StrategyGameMode"
+  ]
+ ],
+ "cycles": [
+  [
+   "BP_StrategyPlayerController",
+   "WBP_StrategyMobileControls"
+  ]
+ ],
+ "unreadable": []
+}

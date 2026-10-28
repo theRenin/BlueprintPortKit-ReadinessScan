@@ -1,0 +1,20 @@
+BlueprintDump: the source, and how to build it yourself
+=======================================================
+
+BlueprintDump is the small .NET program the scan runs to read saved Blueprints. The folder above holds a ready build; this folder holds
+its source, so you can read it or build the same DLL yourself.
+
+  Program.cs, Pseudo.cs     the program: reads a .uasset with UAssetAPI and prints its graph as pseudocode or as an export list
+  BlueprintDump.csproj      the project (net9.0; runs on .NET 9 or newer)
+
+It needs UAssetAPI built from commit 3228c1e86261aa08131f7ec0ff1a395f5d0b2a84 of https://github.com/atenfyr/UAssetAPI (MIT). The NuGet release 1.1.0
+cannot read packages saved by Unreal Engine 5.8, so the build pins that commit of the master branch.
+
+How to build (Windows, git and a .NET SDK 9 or newer):
+  1. git clone https://github.com/atenfyr/UAssetAPI   then   git -C UAssetAPI checkout 3228c1e86261aa08131f7ec0ff1a395f5d0b2a84
+  2. In UAssetAPI/UAssetAPI/UAssetAPI.csproj set <TargetFramework> to net9.0 (it says net10.0).
+  3. dotnet build UAssetAPI/UAssetAPI/UAssetAPI.csproj -c Release -o uassetapi-out -p:LangVersion=preview
+  4. dotnet publish BlueprintDump.csproj -c Release -o out -p:UAssetApiDll=<full path to uassetapi-out/UAssetAPI.dll> -p:UseAppHost=false
+     out/ then holds the same files as the BlueprintDump folder above. Point the scan at your build with --dump out/BlueprintDump.dll.
+
+Newtonsoft.Json and ZstdSharp come from NuGet during the build. Their licenses are in THIRD-PARTY-NOTICES.txt.

@@ -5,14 +5,15 @@ Run it BEFORE the first port item. It answers "does the kit fit this project, an
 the editor and without changing anything. For every Blueprint (also Blueprint structs and enums) under the Content
 folders you name it reports:
   - the parent class, the size (variables, functions, bytecode statements, graph nodes) and what depends on it;
-  - the constructs on the kit's can't-do list that it contains (SKILL.md, section 6): interfaces, event dispatchers,
-    timelines, custom macros, widget property bindings, replication, casts, soft references, whether an Anim
-    Blueprint or a State Tree is involved, and the Widget, Anim and Level Blueprints whose reparent is hand work;
+  - the constructs on the plugin's list of what stays hand work that it contains, in two groups: hand work (timelines,
+    custom macros, Anim Blueprint property access, Widget/Anim/Level Blueprints reparented in the editor) and what the
+    tools handle and check in the dry run (interfaces, event dispatchers, widget property bindings, replication, casts,
+    soft references, State Trees);
   - a bottom-up port order: a Blueprint comes after the Blueprints it needs (cycles are named, not hidden).
 The result is one Markdown file (to read) and one JSON file (for tools and agents).
 
 How it reads the project:
-  - BlueprintDump (`--list` and `--exports`, see SKILL.md section 7) gives each Blueprint's index and graph nodes.
+  - BlueprintDump (`--list` and `--exports`) gives each Blueprint's index and graph nodes.
   - "Who uses it" and the port order come from the package header of every .uasset/.umap file under the Content
     root: the name table lists every asset path the file refers to (parent class, casts, variables, soft
     references, placed actors in levels). BlueprintDump cannot say that, and the header is cheap to read.
@@ -44,7 +45,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 KIT_DUMP = Path(__file__).resolve().parent / "BlueprintDump" / "BlueprintDump.dll"
-# A closing paragraph for the report. Empty here; make_release.py --scan (the free readiness scan package) replaces the next line.
+# A closing paragraph for the report: what the BlueprintPortKit plugin does.
 REPORT_FOOTER = 'This report was made by the free BlueprintPortKit Readiness Scan. BlueprintPortKit is the plugin that does the Blueprint side of a Blueprint-to-C++ port for the Blueprints listed above: it re-points every caller of a moved function, deletes what C++ replaced (and refuses while anything still uses it), reparents after a clash check, swaps Blueprint structs, enums and interfaces for their C++ versions, and rebinds State Tree properties. Every tool has a dry run that lists the plan first. More: rgruszkowski@seznam.cz'
 DEFAULTS = {
     "folders": [],
@@ -60,21 +61,34 @@ DEFAULTS = {
 FILES_PER_CALL = 25      # files given to one BlueprintDump call (it takes several paths; starting it costs about 0.3 s)
 DUMP_TIMEOUT = 600       # seconds for one BlueprintDump call
 
-# The kit's can't-do list, one row per construct: key -> (label, what it means for a port). Edit the text here when
-# a kit tool starts to cover a construct; nothing else in this file names a tool.
+# The constructs the scan reports, one row each: key -> (label, what it means for a port). Edit the text here when a kit tool
+# starts to cover a construct; nothing else in this file names a tool. Two groups (developer's decision, 2026-10-28):
+#   HAND_WORK: no tool does it; a Blueprint with one of these is not "portable with the kit alone".
+#   every other construct: the kit's tools handle it and check it in the dry run (what stays by hand is in its text).
 CONSTRUCTS = {
-    "interfaces": ("Interfaces", "`swap_interface` moves the Blueprints that implement a Blueprint Interface onto a C++ interface; message calls in levels and unloaded Blueprints stay a WARNING, and the old interface is deleted by hand"),
-    "dispatchers": ("Event dispatchers", "not bridged, renamed or retyped by the kit"),
+    "interfaces": ("Interfaces", "`swap_interface` moves the Blueprints that implement a Blueprint Interface onto a C++ interface (names with spaces match); a Blueprint can also keep its Blueprint Interface while it is ported. Message calls in levels and unloaded Blueprints stay a WARNING, and the old interface is deleted by hand"),
+    "dispatchers": ("Event dispatchers", "the reparent preflight compares a dispatcher with the C++ delegate of its name, and `repoint_dispatcher_to_component` moves its users to a component; renaming or retyping a dispatcher stays hand work"),
     "timelines": ("Timelines", "no tool moves a Timeline: its curves and update logic are rewritten in C++ by hand"),
     "macros": ("Custom macros", "logic inside a macro graph is not seen by the call and delete tools"),
     "widget_bindings": ("Widget bindings", "the delete tools refuse while a binding names the member and `rename_member_variable` carries a variable binding along; a bound function in a re-point is a WARNING to bind by hand"),
     "replication": ("Replication", "the reparent preflight compares replication (flag, RepNotify, condition) and the re-point tools the RPC kind; a difference is a WARNING and a real run is refused"),
-    "casts": ("Casts", "hand work when the cast target is the class being replaced"),
-    "soft_references": ("Soft references", "hand work when the target is the class being replaced"),
+    "casts": ("Casts", "they keep working while the Blueprint they cast to stays (the usual port: the Blueprint becomes a thin child of the C++ class); only a cast to a Blueprint you delete or replace with a C++ class is hand work"),
+    "soft_references": ("Soft references", "they keep working while the asset they point at stays; only one to a Blueprint you delete or replace with a C++ class is hand work"),
     "anim_blueprint": ("Anim Blueprint", "Property Access nodes cannot be edited: the delete tools only warn"),
     "reparent_by_hand": ("Reparent by hand", "`reparent_blueprint` refuses Widget, Animation and Level Blueprints: reparent them in the editor (File > Reparent Blueprint)"),
-    "state_tree": ("State Tree", "only plain property bindings are covered; output and completion bindings are hand work"),
+    "state_tree": ("State Tree", "`rebind_state_tree_property` and `remove_state_tree_binding` handle plain property bindings; output, task completion and property function bindings are hand work (the scan cannot tell them apart)"),
 }
+HAND_WORK = {"timelines", "macros", "anim_blueprint", "reparent_by_hand"}
+
+
+def hand_work_keys(entry):
+    """The constructs of an entry that no tool handles (HAND_WORK), in the CONSTRUCTS order."""
+    return [k for k in entry["constructs"] if k in HAND_WORK]
+
+
+def checked_keys(entry):
+    """The constructs of an entry that the kit's tools handle and check."""
+    return [k for k in entry["constructs"] if k not in HAND_WORK]
 # What a Blueprint's native root parent says about its kind, when its saved graph does not say it already.
 NATIVE_KINDS = {"Interface": "Blueprint Interface", "AnimInstance": "Anim Blueprint",
                 "UserWidget": "Widget Blueprint", "BlueprintFunctionLibrary": "Function library",
@@ -616,16 +630,18 @@ def make_report(settings, root, entries, waves, cycles, failed, today):
     constructs = {}
     for key, (label, note) in CONSTRUCTS.items():
         with_it = [e for e in ordered if key in e["constructs"]]
-        constructs[key] = {"label": label, "note": note, "blueprints": len(with_it),
+        constructs[key] = {"label": label, "note": note, "hand_work": key in HAND_WORK, "blueprints": len(with_it),
                            "occurrences": sum(e["constructs"][key]["count"] for e in with_it)}
-    clear = sum(1 for e in ordered if not e["constructs"])
+    clear = sum(1 for e in ordered if not hand_work_keys(e))
+    checked_only = sum(1 for e in ordered if not hand_work_keys(e) and e["constructs"])
     return {
         "generated": (today or datetime.date.today()).isoformat(),
         "settings": {"folders": [str(f) for f in settings["folders"]], "content_root": str(root), "mount": settings["mount"],
                      "engine": settings["engine"], "exclude": settings["exclude"]},
         "summary": {"entries": len(ordered), "blueprints": sum(1 for e in ordered if e["kind"] not in ("Struct", "Enum")),
                     "structs": sum(1 for e in ordered if e["kind"] == "Struct"), "enums": sum(1 for e in ordered if e["kind"] == "Enum"),
-                    "without_hand_work": clear, "with_hand_work": len(ordered) - clear, "cycles": len(cycles), "unreadable": len(failed)},
+                    "without_hand_work": clear, "with_hand_work": len(ordered) - clear, "with_checked_only": checked_only,
+                    "cycles": len(cycles), "unreadable": len(failed)},
         "constructs": constructs, "blueprints": ordered, "waves": waves, "cycles": cycles,
         "unreadable": [{"file": str(p), "reason": r} for p, r in sorted(failed.items())],
     }
@@ -633,17 +649,17 @@ def make_report(settings, root, entries, waves, cycles, failed, today):
 
 # ---------------------------------------------------------------- the two files
 
-def hand_work_text(entry):
-    """'3 casts, 1 timeline' style short text for the table."""
-    return ", ".join(f"{CONSTRUCTS[k][0].lower()} {v['count']}" for k, v in entry["constructs"].items()) or "none"
+def constructs_text(entry, keys):
+    """'timelines 1, custom macros 2' style short text for the table: the given construct keys of the entry."""
+    return ", ".join(f"{CONSTRUCTS[k][0].lower()} {entry['constructs'][k]['count']}" for k in keys) or "none"
 
 
 def portable_lines(report, cap=40):
-    """The Blueprints (not structs or enums) with none of the hand-work constructs, in port order: what the kit's tools can move without
-    your help. At most `cap` names; the JSON file has every entry."""
-    names = [e["name"] for e in report["blueprints"] if not e["constructs"] and e["kind"] not in ("Struct", "Enum")]
+    """The Blueprints (not structs or enums) with no hand-work construct, in port order: what the kit's tools can move without your help
+    (the constructs they handle are checked in the dry run). At most `cap` names; the JSON file has every entry."""
+    names = [e["name"] for e in report["blueprints"] if not hand_work_keys(e) and e["kind"] not in ("Struct", "Enum")]
     if not names:
-        return ["None of the Blueprints is free of the constructs below: every one needs some hand work."]
+        return ["None of the Blueprints is free of hand work: every one has at least one construct of the hand-work table."]
     shown = ", ".join(names[:cap]) + (f" ... and {len(names) - cap} more" if len(names) > cap else "")
     return [f"{len(names)} Blueprint(s), in port order: {shown}"]
 
@@ -656,28 +672,33 @@ def markdown_lines(report):
              f"mounted at `{settings['mount']}`, saved by UE {settings['engine']}.", "",
              "## Summary", "",
              f"- {s['blueprints']} Blueprints, {s['structs']} structs, {s['enums']} enums.",
-             f"- {s['without_hand_work']} have none of the constructs below; {s['with_hand_work']} contain at least one (hand work).",
+             f"- {s['without_hand_work']} need no hand work: the kit's tools can port them ({s['with_checked_only']} of them contain constructs the tools handle and check in the dry run). "
+             f"{s['with_hand_work']} contain at least one construct that stays hand work.",
              f"- {s['cycles']} cycle(s) of Blueprints that refer to each other; {s['unreadable']} file(s) BlueprintDump could not read.", "",
              "## Can be ported with the kit alone", ""]
     lines += portable_lines(report)
-    lines += ["", "## What the kit cannot do, found in this project", "",
-             "| Construct | Blueprints | Occurrences | What it means |", "|---|---|---|---|"]
-    lines += [f"| {c['label']} | {c['blueprints']} | {c['occurrences']} | {c['note']} |" for c in report["constructs"].values()]
+    lines += ["", "## Handled by the kit, checked in the dry run", "",
+              "| Construct | Blueprints | Occurrences | What the kit does, and what stays by hand |", "|---|---|---|---|"]
+    lines += [f"| {c['label']} | {c['blueprints']} | {c['occurrences']} | {c['note']} |" for c in report["constructs"].values() if not c["hand_work"]]
+    lines += ["", "## Hand work: what the kit cannot do, found in this project", "",
+              "| Construct | Blueprints | Occurrences | What it means |", "|---|---|---|---|"]
+    lines += [f"| {c['label']} | {c['blueprints']} | {c['occurrences']} | {c['note']} |" for c in report["constructs"].values() if c["hand_work"]]
     lines += ["", "## Port order (bottom-up)", "",
               "A Blueprint comes after the Blueprints it needs. Everything in one wave can be ported in any order; wave 0 needs no other Blueprint of the project.", ""]
     lines += [f"- Wave {number}: {', '.join(names)}" for number, names in enumerate(report["waves"])]
     for number, group in enumerate(report["cycles"], 1):
         lines.append(f"- Cycle C{number}: {', '.join(group)} refer to each other; port them in one item or break the cycle first.")
-    lines += ["", "## Blueprints", "", "| # | Blueprint | Kind | Parent | Statements | Needs | Used by | Hand work |", "|---|---|---|---|---|---|---|---|"]
+    lines += ["", "## Blueprints", "", "| # | Blueprint | Kind | Parent | Statements | Needs | Used by | Hand work | Handled and checked |", "|---|---|---|---|---|---|---|---|---|"]
     for e in report["blueprints"]:
         used = e["referenced_by"]
         used_by = len(used["blueprints"]) + len(used["levels"]) + len(used["state_trees"]) + len(used["other"]) + used["placed_actors"]
         lines.append(f"| {e['order']} | {e['name']} | {e['kind']} | {e['parent'] or ''} | {e['size']['statements']} | "
-                     f"{len(e['depends_on'])} | {used_by} | {hand_work_text(e)} |")
-    lines += ["", "## Hand work in detail", ""]
+                     f"{len(e['depends_on'])} | {used_by} | {constructs_text(e, hand_work_keys(e))} | {constructs_text(e, checked_keys(e))} |")
+    lines += ["", "## Constructs in detail", ""]
     for e in report["blueprints"]:
         for key, found in e["constructs"].items():
-            lines.append(f"- **{e['name']}**, {CONSTRUCTS[key][0].lower()}: {'; '.join(found['items'][:8])}" + (" ..." if len(found["items"]) > 8 else ""))
+            group = "hand work" if key in HAND_WORK else "handled"
+            lines.append(f"- **{e['name']}**, {CONSTRUCTS[key][0].lower()} ({group}): {'; '.join(found['items'][:8])}" + (" ..." if len(found["items"]) > 8 else ""))
     if report["unreadable"]:
         lines += ["", "## Not read", ""] + [f"- `{u['file']}`: {u['reason']}" for u in report["unreadable"]]
     if REPORT_FOOTER:

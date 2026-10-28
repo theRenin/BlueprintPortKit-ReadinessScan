@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <!-- Runs on .NET 9 or any newer runtime (10, 11...): a buyer who has only a newer one needs no second install. -->
+    <RollForward>LatestMajor</RollForward>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <!-- The UAssetAPI build that reads UE 5.8 packages: pass its path with -p:UAssetApiDll=... (see BUILD.txt). -->
+    <UAssetApiDll Condition="'$(UAssetApiDll)' == ''">$(MSBuildThisFileDirectory)../Intermediate/UAssetAPI/UAssetAPI.dll</UAssetApiDll>
+  </PropertyGroup>
+
+  <!-- The pinned UAssetAPI build, when it exists: it reads packages saved by UE 5.8. Its two dependencies come from NuGet. -->
+  <ItemGroup Condition="Exists('$(UAssetApiDll)')">
+    <Reference Include="UAssetAPI">
+      <HintPath>$(UAssetApiDll)</HintPath>
+    </Reference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="ZstdSharp.Port" Version="0.8.1" />
+  </ItemGroup>
+
+  <!-- Otherwise the NuGet release 1.1.0, which can't read packages saved by UE 5.8 (the tool says so when a load fails). -->
+  <ItemGroup Condition="!Exists('$(UAssetApiDll)')">
+    <PackageReference Include="UAssetAPI" Version="1.1.0" />
+  </ItemGroup>
+
+</Project>

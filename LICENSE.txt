@@ -1,5 +1,5 @@
 BlueprintPortKit Readiness Scan - free license
-Version 1.0 of this text, 28 October 2026 (for BlueprintPortKit Readiness Scan 1.0.0)
+Version 1.0 of this text, 28 October 2026 (for BlueprintPortKit Readiness Scan 1.0.1)
 
 Copyright (c) 2026 Rene Gruszkowski. All rights reserved.
 Contact: rgruszkowski@seznam.cz
