@@ -58,5 +58,3 @@ Only what is saved on disk. Level Blueprints, local variables, "Call Function By
 ## BlueprintPortKit
 
 BlueprintPortKit is a separate, paid Unreal Engine 5.8 editor plugin that does the Blueprint side of a Blueprint-to-C++ port: it re-points every caller of a moved function, deletes what C++ replaced (and refuses while anything still uses it), reparents after a clash check, swaps Blueprint structs, enums and interfaces for their C++ versions, and rebinds State Tree properties. Every tool has a dry run that lists the plan first.
-
-Questions and bug reports: open an issue here or write to rgruszkowski@seznam.cz.
